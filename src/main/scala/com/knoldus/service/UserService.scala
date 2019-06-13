@@ -41,7 +41,7 @@ class UserService(mongoClient: MongoClient, conf: Config)(implicit val logger: L
   def deleteUser(user: User): Future[Unit] = Future {
 
     if (getCount(user.mobileNumber) == 1) {
-      super.deleteOne(user.mobileNumber, collection)
+      super.deleteOne(user.mobileNumber, collection, "mobileNumber")
       logger.info("user deleted Successfully")
     }
     else {
@@ -53,10 +53,10 @@ class UserService(mongoClient: MongoClient, conf: Config)(implicit val logger: L
   def updateUser(user: User, mobileNumber: Int): Future[Unit] = Future {
 
     if (getCount(user.mobileNumber) == 1) {
-      val data = super.findOne(user.mobileNumber, collection)
+      val data = super.findOne(user.mobileNumber, collection, "mobileNumber")
       data.toFuture().onComplete(user => user match {
         case Success(value) =>
-          super.update(value.mobileNumber, mobileNumber, collection)
+          super.update(value.mobileNumber, mobileNumber, collection, "mobileNumber")
         case _ => throw new RuntimeException("unable to update user")
       })
       logger.info("user deleted Successfully")
@@ -70,7 +70,7 @@ class UserService(mongoClient: MongoClient, conf: Config)(implicit val logger: L
   def findUser(number: Int): Future[Unit] = Future {
 
     if (getCount(number) == 1) {
-      super.findOne(number, collection).printHeadResult("User Data : ---")
+      super.findOne(number, collection, "mobileNumber").printHeadResult("User Data : ---")
       logger.info("user added successfully")
     }
     else {
@@ -80,6 +80,6 @@ class UserService(mongoClient: MongoClient, conf: Config)(implicit val logger: L
   }
 
   private def getCount(mobileNumber: Int): Long =
-    Await.result(super.count(mobileNumber, collection).toFuture(), Duration(10, TimeUnit.SECONDS))
+    Await.result(super.count(mobileNumber, collection, "mobileNumber").toFuture(), Duration(10, TimeUnit.SECONDS))
 
 }

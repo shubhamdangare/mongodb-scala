@@ -9,45 +9,45 @@ import scala.reflect.ClassTag
 
 abstract class MongoEntity[T](implicit c: ClassTag[T]) {
 
-  def createMany(t:Seq[T] , collection:MongoCollection[T]) : Seq[Completed] = {
+  def createMany(t: Seq[T], collection: MongoCollection[T]): Seq[Completed] = {
 
     collection.insertMany(t).results()
   }
 
-  def create(t:T , collection:MongoCollection[T]) : Seq[Completed] = {
+  def create(t: T, collection: MongoCollection[T]): Seq[Completed] = {
 
     collection.insertOne(t).results()
   }
 
-  def deleteOne(t:Int , collection:MongoCollection[T]): Unit = {
+  def deleteOne(t: Int, collection: MongoCollection[T], fieldName: String): Unit = {
 
-    collection.deleteOne(equal("mobileNumber", t)).printHeadResult("deleted")
+    collection.deleteOne(equal(fieldName, t)).printHeadResult("deleted")
   }
 
-  def deleteMany(t:Seq[Int] , collection:MongoCollection[T]): Unit = {
+  def deleteMany(t: Seq[Int], collection: MongoCollection[T], fieldName: String): Unit = {
 
-    t.map( data => collection.deleteMany(equal("mobileNumber", data)))
+    t.map(data => collection.deleteMany(equal(fieldName, data)))
   }
 
 
-  def findOne(t:Int, collection:MongoCollection[T]): SingleObservable[T] = {
+  def findOne(t: Int, collection: MongoCollection[T], fieldName: String): SingleObservable[T] = {
 
-    collection.find(equal("mobileNumber",t)).first()
+    collection.find(equal(fieldName, t)).first()
   }
 
-  def findAll(collection:MongoCollection[T]): FindObservable[T] = {
+  def findAll(collection: MongoCollection[T]): FindObservable[T] = {
 
     collection.find()
   }
 
-  def update(existing: Int, t: Int, collection:MongoCollection[T]) = {
-    collection.updateOne(equal("mobileNumber", existing), set("mobileNumber", t)).printHeadResult("Update Result: ")
+  def update(existing: Int, t: Int, collection: MongoCollection[T], fieldName: String) = {
+    collection.updateOne(equal(fieldName, existing), set(fieldName, t)).printHeadResult("Update Result: ")
 
   }
 
-  def count(t:Int , collection:MongoCollection[T]): SingleObservable[Long] = {
+  def count(t: Int, collection: MongoCollection[T], fieldName: String): SingleObservable[Long] = {
 
-    collection.count(equal("mobileNumber", t))
+    collection.count(equal(fieldName, t))
 
   }
 

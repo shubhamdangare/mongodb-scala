@@ -4,7 +4,7 @@
 		module="scala-mongodb_2.12"
 		revision="0.1"
 		status="integration"
-		publication="20190613154113"
+		publication="20190613160635"
 	>
 		<description>
 		scala-mongodb
