@@ -16,7 +16,7 @@ import scala.concurrent.{Await, Future}
 class UserService(dao: UserDao, conf: Config)(implicit val logger: Logger) {
 
 
-  def AddUser(user: User): Future[Either[UserServiceError, User]] = {
+  def addUser(user: User): Future[Either[UserServiceError, User]] = {
 
     if (getCount(user.mobileNumber) == 0) {
       logger.info("user added successfully")

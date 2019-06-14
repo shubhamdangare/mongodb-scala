@@ -1,7 +1,6 @@
 package com.knoldus.db
 
 import java.util.concurrent.TimeUnit
-
 import com.knoldus.dao.UserDao
 import com.knoldus.domain.User
 import com.knoldus.service.UserService
@@ -34,7 +33,7 @@ object MongoApplication extends App {
 
   val person: User = User("Ada", "Lovelace", "us", "17/1970", 55522222, "WD")
 
- // Await.result(userService.AddUser(person), Duration(10, TimeUnit.SECONDS))
+  // Await.result(userService.AddUser(person), Duration(10, TimeUnit.SECONDS))
   //userService.updateUser(person,111311111)
 
   Await.result(userService.findUser(111311111), Duration(10, TimeUnit.SECONDS))

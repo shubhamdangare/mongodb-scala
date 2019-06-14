@@ -1,0 +1,519 @@
+<?xml version="1.0"?>
+<!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
+<coverage 
+line-rate="0.36" lines-valid="154" lines-covered="56" branches-valid="10" branches-covered="8" branch-rate="0.80" complexity="0" version="1.0" timestamp="1560506547422">
+    <sources>
+        <source>--source</source>
+        <source>/home/shubham/Desktop/work/scala-mongodb/src/main/scala</source>
+    </sources>
+    <packages>
+        <package name="com.knoldus.dao" line-rate="0.00" branch-rate="0.00" complexity="0">
+            <classes>
+                <class 
+                name="com.knoldus.dao.UserDao" filename="com/knoldus/dao/UserDao.scala" line-rate="0.00" branch-rate="0.00" complexity="0">
+                    <methods>
+                        <method name="com.knoldus.dao/UserDao/&lt;none&gt;" signature="()V" line-rate="0.00" branch-rate="0.00" complexity="0">
+                            <lines>
+                                <line number="9" hits="0" branch="false"/>
+                                <line number="11" hits="0" branch="false"/>
+                            </lines>
+                        </method>
+                    </methods>
+                    <lines>
+                        <line number="9" hits="0" branch="false"/>
+                        <line number="11" hits="0" branch="false"/>
+                    </lines>
+</class>
+            </classes>
+        </package>
+        <package name="com.knoldus.db" line-rate="0.00" branch-rate="0.00" complexity="0">
+            <classes>
+                <class 
+                name="com.knoldus.db.Helpers.DocumentObservable" filename="com/knoldus/db/Helpers.scala" line-rate="0.00" branch-rate="0.00" complexity="0">
+                    <methods>
+                        <method 
+                        name="com.knoldus.db/DocumentObservable/&lt;none&gt;" signature="()V" line-rate="0.00" branch-rate="0.00" complexity="0">
+                            <lines>
+                                <line number="13" hits="0" branch="false"/>
+                            </lines>
+</method>
+                    </methods>
+                    <lines>
+                        <line number="13" hits="0" branch="false"/>
+                    </lines>
+</class>
+                <class 
+                name="com.knoldus.db.Helpers.GenericObservable" filename="com/knoldus/db/Helpers.scala" line-rate="0.00" branch-rate="0.00" complexity="0">
+                    <methods>
+                        <method 
+                        name="com.knoldus.db/GenericObservable/&lt;none&gt;" signature="()V" line-rate="0.00" branch-rate="0.00" complexity="0">
+                            <lines>
+                                <line number="17" hits="0" branch="false"/>
+                            </lines>
+</method>
+                    </methods>
+                    <lines>
+                        <line number="17" hits="0" branch="false"/>
+                    </lines>
+</class>
+                <class 
+                name="com.knoldus.db.MongoApplication" filename="com/knoldus/MongoApplication.scala" line-rate="0.00" branch-rate="0.00" complexity="0">
+                    <methods>
+                        <method 
+                        name="com.knoldus.db/MongoApplication/&lt;none&gt;" signature="()V" line-rate="0.00" branch-rate="0.00" complexity="0">
+                            <lines>
+                                <line number="35" hits="0" branch="false"/>
+                                <line number="32" hits="0" branch="false"/>
+                                <line number="26" hits="0" branch="false"/>
+                                <line number="40" hits="0" branch="false"/>
+                                <line number="27" hits="0" branch="false"/>
+                                <line number="33" hits="0" branch="false"/>
+                                <line number="24" hits="0" branch="false"/>
+                                <line number="25" hits="0" branch="false"/>
+                                <line number="28" hits="0" branch="false"/>
+                                <line number="28" hits="0" branch="false"/>
+                                <line number="25" hits="0" branch="false"/>
+                                <line number="33" hits="0" branch="false"/>
+                                <line number="30" hits="0" branch="false"/>
+                                <line number="26" hits="0" branch="false"/>
+                                <line number="40" hits="0" branch="false"/>
+                                <line number="27" hits="0" branch="false"/>
+                                <line number="23" hits="0" branch="false"/>
+                                <line number="33" hits="0" branch="false"/>
+                                <line number="32" hits="0" branch="false"/>
+                                <line number="27" hits="0" branch="false"/>
+                                <line number="33" hits="0" branch="false"/>
+                                <line number="24" hits="0" branch="false"/>
+                                <line number="28" hits="0" branch="false"/>
+                                <line number="30" hits="0" branch="false"/>
+                                <line number="40" hits="0" branch="false"/>
+                                <line number="26" hits="0" branch="false"/>
+                            </lines>
+</method>
+                        <method 
+                        name="com.knoldus.db/MongoApplication/tryConnectToMongo" signature="()V" line-rate="0.00" branch-rate="0.00" complexity="0">
+                            <lines>
+                                <line number="45" hits="0" branch="false"/>
+                                <line number="45" hits="0" branch="false"/>
+                                <line number="43" hits="0" branch="false"/>
+                                <line number="43" hits="0" branch="false"/>
+                                <line number="45" hits="0" branch="false"/>
+                                <line number="46" hits="0" branch="false"/>
+                                <line number="43" hits="0" branch="false"/>
+                                <line number="43" hits="0" branch="false"/>
+                                <line number="45" hits="0" branch="false"/>
+                                <line number="43" hits="0" branch="false"/>
+                                <line number="45" hits="0" branch="false"/>
+                            </lines>
+</method>
+                    </methods>
+                    <lines>
+                        <line number="35" hits="0" branch="false"/>
+                        <line number="45" hits="0" branch="false"/>
+                        <line number="45" hits="0" branch="false"/>
+                        <line number="32" hits="0" branch="false"/>
+                        <line number="26" hits="0" branch="false"/>
+                        <line number="40" hits="0" branch="false"/>
+                        <line number="27" hits="0" branch="false"/>
+                        <line number="43" hits="0" branch="false"/>
+                        <line number="33" hits="0" branch="false"/>
+                        <line number="24" hits="0" branch="false"/>
+                        <line number="25" hits="0" branch="false"/>
+                        <line number="28" hits="0" branch="false"/>
+                        <line number="28" hits="0" branch="false"/>
+                        <line number="25" hits="0" branch="false"/>
+                        <line number="33" hits="0" branch="false"/>
+                        <line number="43" hits="0" branch="false"/>
+                        <line number="30" hits="0" branch="false"/>
+                        <line number="26" hits="0" branch="false"/>
+                        <line number="40" hits="0" branch="false"/>
+                        <line number="45" hits="0" branch="false"/>
+                        <line number="27" hits="0" branch="false"/>
+                        <line number="46" hits="0" branch="false"/>
+                        <line number="23" hits="0" branch="false"/>
+                        <line number="33" hits="0" branch="false"/>
+                        <line number="43" hits="0" branch="false"/>
+                        <line number="43" hits="0" branch="false"/>
+                        <line number="45" hits="0" branch="false"/>
+                        <line number="32" hits="0" branch="false"/>
+                        <line number="27" hits="0" branch="false"/>
+                        <line number="33" hits="0" branch="false"/>
+                        <line number="24" hits="0" branch="false"/>
+                        <line number="28" hits="0" branch="false"/>
+                        <line number="43" hits="0" branch="false"/>
+                        <line number="30" hits="0" branch="false"/>
+                        <line number="40" hits="0" branch="false"/>
+                        <line number="45" hits="0" branch="false"/>
+                        <line number="26" hits="0" branch="false"/>
+                    </lines>
+</class>
+                <class 
+                name="com.knoldus.db.MongoEntity" filename="com/knoldus/db/MongoEntity.scala" line-rate="0.00" branch-rate="0.00" complexity="0">
+                    <methods>
+                        <method 
+                        name="com.knoldus.db/MongoEntity/createMany" signature="()V" line-rate="0.00" branch-rate="0.00" complexity="0">
+                            <lines>
+                                <line number="19" hits="0" branch="false"/>
+                                <line number="19" hits="0" branch="false"/>
+                            </lines>
+</method>
+                        <method name="com.knoldus.db/MongoEntity/count" signature="()V" line-rate="0.00" branch-rate="0.00" complexity="0">
+                            <lines>
+                                <line number="54" hits="0" branch="false"/>
+                                <line number="54" hits="0" branch="false"/>
+                                <line number="54" hits="0" branch="false"/>
+                                <line number="54" hits="0" branch="false"/>
+                            </lines>
+                        </method>
+                        <method name="com.knoldus.db/MongoEntity/findOne" signature="()V" line-rate="0.00" branch-rate="0.00" complexity="0">
+                            <lines>
+                                <line number="39" hits="0" branch="false"/>
+                            </lines>
+                        </method>
+                        <method name="com.knoldus.db/MongoEntity/create" signature="()V" line-rate="0.00" branch-rate="0.00" complexity="0">
+                            <lines>
+                                <line number="24" hits="0" branch="false"/>
+                                <line number="24" hits="0" branch="false"/>
+                            </lines>
+                        </method>
+                        <method name="com.knoldus.db/MongoEntity/findAll" signature="()V" line-rate="0.00" branch-rate="0.00" complexity="0">
+                            <lines>
+                                <line number="44" hits="0" branch="false"/>
+                                <line number="44" hits="0" branch="false"/>
+                                <line number="44" hits="0" branch="false"/>
+                            </lines>
+                        </method>
+                        <method name="com.knoldus.db/MongoEntity/update" signature="()V" line-rate="0.00" branch-rate="0.00" complexity="0">
+                            <lines>
+                                <line number="48" hits="0" branch="false"/>
+                                <line number="48" hits="0" branch="false"/>
+                                <line number="48" hits="0" branch="false"/>
+                                <line number="48" hits="0" branch="false"/>
+                            </lines>
+                        </method>
+                        <method name="com.knoldus.db/MongoEntity/deleteOne" signature="()V" line-rate="0.00" branch-rate="0.00" complexity="0">
+                            <lines>
+                                <line number="29" hits="0" branch="false"/>
+                                <line number="29" hits="0" branch="false"/>
+                                <line number="29" hits="0" branch="false"/>
+                            </lines>
+                        </method>
+                        <method 
+                        name="com.knoldus.db/MongoEntity/deleteMany" signature="()V" line-rate="0.00" branch-rate="0.00" complexity="0">
+                            <lines>
+                                <line number="34" hits="0" branch="false"/>
+                                <line number="34" hits="0" branch="false"/>
+                                <line number="34" hits="0" branch="false"/>
+                                <line number="34" hits="0" branch="false"/>
+                                <line number="34" hits="0" branch="false"/>
+                            </lines>
+</method>
+                        <method 
+                        name="com.knoldus.db/MongoEntity/collection" signature="()V" line-rate="0.00" branch-rate="0.00" complexity="0">
+                            <lines>
+                                <line number="59" hits="0" branch="false"/>
+                                <line number="59" hits="0" branch="false"/>
+                                <line number="59" hits="0" branch="false"/>
+                                <line number="59" hits="0" branch="false"/>
+                            </lines>
+</method>
+                    </methods>
+                    <lines>
+                        <line number="54" hits="0" branch="false"/>
+                        <line number="44" hits="0" branch="false"/>
+                        <line number="54" hits="0" branch="false"/>
+                        <line number="29" hits="0" branch="false"/>
+                        <line number="59" hits="0" branch="false"/>
+                        <line number="48" hits="0" branch="false"/>
+                        <line number="34" hits="0" branch="false"/>
+                        <line number="34" hits="0" branch="false"/>
+                        <line number="24" hits="0" branch="false"/>
+                        <line number="48" hits="0" branch="false"/>
+                        <line number="19" hits="0" branch="false"/>
+                        <line number="34" hits="0" branch="false"/>
+                        <line number="29" hits="0" branch="false"/>
+                        <line number="54" hits="0" branch="false"/>
+                        <line number="44" hits="0" branch="false"/>
+                        <line number="48" hits="0" branch="false"/>
+                        <line number="59" hits="0" branch="false"/>
+                        <line number="34" hits="0" branch="false"/>
+                        <line number="59" hits="0" branch="false"/>
+                        <line number="44" hits="0" branch="false"/>
+                        <line number="29" hits="0" branch="false"/>
+                        <line number="59" hits="0" branch="false"/>
+                        <line number="19" hits="0" branch="false"/>
+                        <line number="48" hits="0" branch="false"/>
+                        <line number="34" hits="0" branch="false"/>
+                        <line number="54" hits="0" branch="false"/>
+                        <line number="39" hits="0" branch="false"/>
+                        <line number="24" hits="0" branch="false"/>
+                    </lines>
+</class>
+                <class 
+                name="com.knoldus.db.Helpers.ImplicitObservable" filename="com/knoldus/db/Helpers.scala" line-rate="0.00" branch-rate="0.00" complexity="0">
+                    <methods>
+                        <method 
+                        name="com.knoldus.db/ImplicitObservable/printHeadResult" signature="()V" line-rate="0.00" branch-rate="0.00" complexity="0">
+                            <lines>
+                                <line number="33" hits="0" branch="false"/>
+                                <line number="33" hits="0" branch="false"/>
+                                <line number="33" hits="0" branch="false"/>
+                                <line number="33" hits="0" branch="false"/>
+                                <line number="33" hits="0" branch="false"/>
+                                <line number="33" hits="0" branch="false"/>
+                                <line number="33" hits="0" branch="false"/>
+                            </lines>
+</method>
+                        <method 
+                        name="com.knoldus.db/ImplicitObservable/headResult" signature="()V" line-rate="0.00" branch-rate="0.00" complexity="0">
+                            <lines>
+                                <line number="26" hits="0" branch="false"/>
+                                <line number="26" hits="0" branch="false"/>
+                                <line number="26" hits="0" branch="false"/>
+                            </lines>
+</method>
+                        <method 
+                        name="com.knoldus.db/ImplicitObservable/printResults" signature="()V" line-rate="0.00" branch-rate="0.00" complexity="0">
+                            <lines>
+                                <line number="29" hits="0" branch="false"/>
+                                <line number="30" hits="0" branch="false"/>
+                                <line number="30" hits="0" branch="false"/>
+                                <line number="29" hits="0" branch="false"/>
+                                <line number="29" hits="0" branch="false"/>
+                                <line number="30" hits="0" branch="false"/>
+                                <line number="29" hits="0" branch="false"/>
+                                <line number="29" hits="0" branch="false"/>
+                            </lines>
+</method>
+                        <method 
+                        name="com.knoldus.db/ImplicitObservable/results" signature="()V" line-rate="0.00" branch-rate="0.00" complexity="0">
+                            <lines>
+                                <line number="24" hits="0" branch="false"/>
+                                <line number="24" hits="0" branch="false"/>
+                                <line number="24" hits="0" branch="false"/>
+                            </lines>
+</method>
+                    </methods>
+                    <lines>
+                        <line number="29" hits="0" branch="false"/>
+                        <line number="33" hits="0" branch="false"/>
+                        <line number="30" hits="0" branch="false"/>
+                        <line number="33" hits="0" branch="false"/>
+                        <line number="24" hits="0" branch="false"/>
+                        <line number="33" hits="0" branch="false"/>
+                        <line number="26" hits="0" branch="false"/>
+                        <line number="26" hits="0" branch="false"/>
+                        <line number="30" hits="0" branch="false"/>
+                        <line number="33" hits="0" branch="false"/>
+                        <line number="29" hits="0" branch="false"/>
+                        <line number="24" hits="0" branch="false"/>
+                        <line number="29" hits="0" branch="false"/>
+                        <line number="33" hits="0" branch="false"/>
+                        <line number="33" hits="0" branch="false"/>
+                        <line number="30" hits="0" branch="false"/>
+                        <line number="26" hits="0" branch="false"/>
+                        <line number="33" hits="0" branch="false"/>
+                        <line number="29" hits="0" branch="false"/>
+                        <line number="24" hits="0" branch="false"/>
+                        <line number="29" hits="0" branch="false"/>
+                    </lines>
+</class>
+            </classes>
+        </package>
+        <package name="com.knoldus.domain" line-rate="1.00" branch-rate="1.00" complexity="0">
+            <classes>
+                <class 
+                name="com.knoldus.domain.User" filename="com/knoldus/domain/User.scala" line-rate="1.00" branch-rate="1.00" complexity="0">
+                    <methods>
+                        <method name="com.knoldus.domain/User/apply" signature="()V" line-rate="1.00" branch-rate="1.00" complexity="0">
+                            <lines>
+                                <line number="13" hits="1" branch="false"/>
+                                <line number="13" hits="1" branch="false"/>
+                            </lines>
+                        </method>
+                    </methods>
+                    <lines>
+                        <line number="13" hits="1" branch="false"/>
+                        <line number="13" hits="1" branch="false"/>
+                    </lines>
+</class>
+            </classes>
+        </package>
+        <package name="com.knoldus.service" line-rate="1.00" branch-rate="1.00" complexity="0">
+            <classes>
+                <class 
+                name="com.knoldus.service.UserService" filename="com/knoldus/service/UserService.scala" line-rate="1.00" branch-rate="1.00" complexity="0">
+                    <methods>
+                        <method 
+                        name="com.knoldus.service/UserService/AddUser" signature="()V" line-rate="1.00" branch-rate="1.00" complexity="0">
+                            <lines>
+                                <line number="28" hits="1" branch="false"/>
+                                <line number="23" hits="1" branch="false"/>
+                                <line number="21" hits="1" branch="false"/>
+                                <line number="28" hits="1" branch="false"/>
+                                <line number="22" hits="1" branch="false"/>
+                                <line number="26" hits="1" branch="false"/>
+                                <line number="24" hits="1" branch="false"/>
+                                <line number="24" hits="1" branch="false"/>
+                                <line number="27" hits="1" branch="false"/>
+                                <line number="21" hits="1" branch="false"/>
+                                <line number="28" hits="1" branch="false"/>
+                            </lines>
+</method>
+                        <method 
+                        name="com.knoldus.service/UserService/updateUser" signature="()V" line-rate="1.00" branch-rate="1.00" complexity="0">
+                            <lines>
+                                <line number="53" hits="1" branch="false"/>
+                                <line number="59" hits="1" branch="false"/>
+                                <line number="60" hits="1" branch="false"/>
+                                <line number="54" hits="1" branch="false"/>
+                                <line number="56" hits="1" branch="false"/>
+                                <line number="53" hits="1" branch="false"/>
+                                <line number="51" hits="1" branch="false"/>
+                                <line number="51" hits="1" branch="false"/>
+                                <line number="60" hits="1" branch="false"/>
+                                <line number="54" hits="1" branch="false"/>
+                                <line number="60" hits="1" branch="false"/>
+                                <line number="53" hits="1" branch="false"/>
+                                <line number="58" hits="1" branch="false"/>
+                                <line number="54" hits="1" branch="false"/>
+                                <line number="56" hits="1" branch="false"/>
+                            </lines>
+</method>
+                        <method 
+                        name="com.knoldus.service/UserService/deleteUser" signature="()V" line-rate="1.00" branch-rate="1.00" complexity="0">
+                            <lines>
+                                <line number="40" hits="1" branch="false"/>
+                                <line number="35" hits="1" branch="false"/>
+                                <line number="43" hits="1" branch="false"/>
+                                <line number="44" hits="1" branch="false"/>
+                                <line number="38" hits="1" branch="false"/>
+                                <line number="38" hits="1" branch="false"/>
+                                <line number="44" hits="1" branch="false"/>
+                                <line number="37" hits="1" branch="false"/>
+                                <line number="35" hits="1" branch="false"/>
+                                <line number="37" hits="1" branch="false"/>
+                                <line number="44" hits="1" branch="false"/>
+                                <line number="38" hits="1" branch="false"/>
+                                <line number="42" hits="1" branch="false"/>
+                                <line number="40" hits="1" branch="false"/>
+                            </lines>
+</method>
+                        <method 
+                        name="com.knoldus.service/UserService/getCount" signature="()V" line-rate="1.00" branch-rate="1.00" complexity="0">
+                            <lines>
+                                <line number="80" hits="1" branch="false"/>
+                                <line number="80" hits="1" branch="false"/>
+                                <line number="80" hits="1" branch="false"/>
+                            </lines>
+</method>
+                        <method 
+                        name="com.knoldus.service/UserService/findUser" signature="()V" line-rate="1.00" branch-rate="1.00" complexity="0">
+                            <lines>
+                                <line number="69" hits="1" branch="false"/>
+                                <line number="73" hits="1" branch="false"/>
+                                <line number="68" hits="1" branch="false"/>
+                                <line number="73" hits="1" branch="false"/>
+                                <line number="67" hits="1" branch="false"/>
+                                <line number="69" hits="1" branch="false"/>
+                                <line number="72" hits="1" branch="false"/>
+                                <line number="67" hits="1" branch="false"/>
+                                <line number="73" hits="1" branch="false"/>
+                                <line number="69" hits="1" branch="false"/>
+                                <line number="71" hits="1" branch="false"/>
+                            </lines>
+</method>
+                    </methods>
+                    <lines>
+                        <line number="69" hits="1" branch="false"/>
+                        <line number="80" hits="1" branch="false"/>
+                        <line number="28" hits="1" branch="false"/>
+                        <line number="40" hits="1" branch="false"/>
+                        <line number="53" hits="1" branch="false"/>
+                        <line number="59" hits="1" branch="false"/>
+                        <line number="23" hits="1" branch="false"/>
+                        <line number="35" hits="1" branch="false"/>
+                        <line number="60" hits="1" branch="false"/>
+                        <line number="54" hits="1" branch="false"/>
+                        <line number="73" hits="1" branch="false"/>
+                        <line number="43" hits="1" branch="false"/>
+                        <line number="68" hits="1" branch="false"/>
+                        <line number="56" hits="1" branch="false"/>
+                        <line number="44" hits="1" branch="false"/>
+                        <line number="21" hits="1" branch="false"/>
+                        <line number="38" hits="1" branch="false"/>
+                        <line number="73" hits="1" branch="false"/>
+                        <line number="53" hits="1" branch="false"/>
+                        <line number="67" hits="1" branch="false"/>
+                        <line number="38" hits="1" branch="false"/>
+                        <line number="44" hits="1" branch="false"/>
+                        <line number="51" hits="1" branch="false"/>
+                        <line number="51" hits="1" branch="false"/>
+                        <line number="69" hits="1" branch="false"/>
+                        <line number="28" hits="1" branch="false"/>
+                        <line number="37" hits="1" branch="false"/>
+                        <line number="80" hits="1" branch="false"/>
+                        <line number="22" hits="1" branch="false"/>
+                        <line number="72" hits="1" branch="false"/>
+                        <line number="60" hits="1" branch="false"/>
+                        <line number="54" hits="1" branch="false"/>
+                        <line number="26" hits="1" branch="false"/>
+                        <line number="35" hits="1" branch="false"/>
+                        <line number="24" hits="1" branch="false"/>
+                        <line number="60" hits="1" branch="false"/>
+                        <line number="67" hits="1" branch="false"/>
+                        <line number="53" hits="1" branch="false"/>
+                        <line number="24" hits="1" branch="false"/>
+                        <line number="58" hits="1" branch="false"/>
+                        <line number="73" hits="1" branch="false"/>
+                        <line number="37" hits="1" branch="false"/>
+                        <line number="44" hits="1" branch="false"/>
+                        <line number="54" hits="1" branch="false"/>
+                        <line number="27" hits="1" branch="false"/>
+                        <line number="80" hits="1" branch="false"/>
+                        <line number="56" hits="1" branch="false"/>
+                        <line number="38" hits="1" branch="false"/>
+                        <line number="69" hits="1" branch="false"/>
+                        <line number="42" hits="1" branch="false"/>
+                        <line number="21" hits="1" branch="false"/>
+                        <line number="28" hits="1" branch="false"/>
+                        <line number="40" hits="1" branch="false"/>
+                        <line number="71" hits="1" branch="false"/>
+                    </lines>
+</class>
+            </classes>
+        </package>
+        <package name="com.knoldus.utils" line-rate="0.00" branch-rate="0.00" complexity="0">
+            <classes>
+                <class 
+                name="com.knoldus.utils.ThrowableExtensions.ThrowableOps" filename="com/knoldus/utils/ThrowableExtensions.scala" line-rate="0.00" branch-rate="0.00" complexity="0">
+                    <methods>
+                        <method 
+                        name="com.knoldus.utils/ThrowableOps/printInfo" signature="()V" line-rate="0.00" branch-rate="0.00" complexity="0">
+                            <lines>
+                                <line number="9" hits="0" branch="false"/>
+                                <line number="8" hits="0" branch="false"/>
+                                <line number="8" hits="0" branch="false"/>
+                                <line number="8" hits="0" branch="false"/>
+                                <line number="8" hits="0" branch="false"/>
+                                <line number="10" hits="0" branch="false"/>
+                                <line number="10" hits="0" branch="false"/>
+                                <line number="9" hits="0" branch="false"/>
+                            </lines>
+</method>
+                    </methods>
+                    <lines>
+                        <line number="9" hits="0" branch="false"/>
+                        <line number="8" hits="0" branch="false"/>
+                        <line number="8" hits="0" branch="false"/>
+                        <line number="8" hits="0" branch="false"/>
+                        <line number="8" hits="0" branch="false"/>
+                        <line number="10" hits="0" branch="false"/>
+                        <line number="10" hits="0" branch="false"/>
+                        <line number="9" hits="0" branch="false"/>
+                    </lines>
+</class>
+            </classes>
+        </package>
+    </packages>
+</coverage>

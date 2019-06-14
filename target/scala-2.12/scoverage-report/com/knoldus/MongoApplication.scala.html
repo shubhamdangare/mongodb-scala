@@ -1,0 +1,1222 @@
+<html>
+      <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title id="title">
+          com/knoldus/MongoApplication.scala.html
+        </title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.20.1/css/theme.default.min.css" type="text/css"/><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.20.1/js/jquery.tablesorter.min.js"></script><link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" type="text/css"/><script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script><script type="text/javascript">
+        $(document).ready(function() {$(".tablesorter").tablesorter();});
+      </script>
+        <style>
+          table.codegrid { font-family: monospace; font-size: 12px; width: auto!important; }table.statementlist { width: auto!important; font-size: 13px; } table.codegrid td { padding: 0!important; border: 0!important } table td.linenumber { width: 40px!important; } 
+        </style>
+      </head>
+      <body style="font-family: monospace;">
+        <ul class="nav nav-tabs">
+          <li>
+            <a href="#codegrid" data-toggle="tab">Codegrid</a>
+          </li>
+          <li>
+            <a href="#statementlist" data-toggle="tab">Statement List</a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="codegrid">
+            <pre style='font-size: 12pt; font-family: courier;'>1 <span style=''>package com.knoldus.db
+</span>2 <span style=''>
+</span>3 <span style=''>import java.util.concurrent.TimeUnit
+</span>4 <span style=''>
+</span>5 <span style=''>import com.knoldus.dao.UserDao
+</span>6 <span style=''>import com.knoldus.domain.User
+</span>7 <span style=''>import com.knoldus.service.UserService
+</span>8 <span style=''>import com.knoldus.utils.ThrowableExtensions._
+</span>9 <span style=''>import com.typesafe.config.ConfigFactory
+</span>10 <span style=''>import org.apache.log4j.Logger
+</span>11 <span style=''>import org.bson.codecs.configuration.CodecRegistries.{fromProviders, fromRegistries}
+</span>12 <span style=''>import org.mongodb.scala.bson.codecs.DEFAULT_CODEC_REGISTRY
+</span>13 <span style=''>import org.mongodb.scala.bson.codecs.Macros._
+</span>14 <span style=''>import org.mongodb.scala.bson.collection.mutable.Document
+</span>15 <span style=''>import org.mongodb.scala.{MongoClient, MongoCollection, MongoDatabase}
+</span>16 <span style=''>
+</span>17 <span style=''>import scala.concurrent.Await
+</span>18 <span style=''>import scala.concurrent.duration.{Duration, DurationInt}
+</span>19 <span style=''>import scala.util.{Failure, Success, Try}
+</span>20 <span style=''>
+</span>21 <span style=''>object MongoApplication extends App {
+</span>22 <span style=''>
+</span>23 <span style=''>  val conf = </span><span style='background: #F0ADAD'>ConfigFactory.load()</span><span style=''>
+</span>24 <span style=''>  implicit val logger = </span><span style='background: #F0ADAD'>Logger.getLogger(this.getClass)</span><span style=''>
+</span>25 <span style=''>  val mongoClient = </span><span style='background: #F0ADAD'>MongoClient(conf.getString(&quot;mongo.url&quot;))</span><span style=''>
+</span>26 <span style=''>  val codecRegistry = </span><span style='background: #F0ADAD'>fromRegistries(fromProviders(classOf[User]), DEFAULT_CODEC_REGISTRY)</span><span style=''>
+</span>27 <span style=''>  val mongoDatabase: MongoDatabase = </span><span style='background: #F0ADAD'>mongoClient.getDatabase(conf.getString(&quot;mongo.db-name&quot;)).withCodecRegistry(codecRegistry)</span><span style=''>
+</span>28 <span style=''>  val collection: MongoCollection[User] = </span><span style='background: #F0ADAD'>mongoDatabase.getCollection(conf.getString(&quot;mongo.collection-name&quot;))</span><span style=''>
+</span>29 <span style=''>
+</span>30 <span style=''>  </span><span style='background: #F0ADAD'>tryConnectToMongo(mongoDatabase)</span><span style=''>
+</span>31 <span style=''>
+</span>32 <span style=''>  val dao = </span><span style='background: #F0ADAD'>new UserDao(mongoDatabase)</span><span style=''>
+</span>33 <span style=''>  val userService = </span><span style='background: #F0ADAD'>new UserService(dao, conf)</span><span style=''>
+</span>34 <span style=''>
+</span>35 <span style=''>  val person: User = </span><span style='background: #F0ADAD'>User(&quot;Ada&quot;, &quot;Lovelace&quot;, &quot;us&quot;, &quot;17/1970&quot;, 55522222, &quot;WD&quot;)</span><span style=''>
+</span>36 <span style=''>
+</span>37 <span style=''> // Await.result(userService.AddUser(person), Duration(10, TimeUnit.SECONDS))
+</span>38 <span style=''>  //userService.updateUser(person,111311111)
+</span>39 <span style=''>
+</span>40 <span style=''>  </span><span style='background: #F0ADAD'>Await.result(userService.findUser(111311111), Duration(10, TimeUnit.SECONDS))</span><span style=''>
+</span>41 <span style=''>
+</span>42 <span style=''>  def tryConnectToMongo(mongoDatabase: MongoDatabase) =
+</span>43 <span style=''>    </span><span style='background: #F0ADAD'>Try(Await.result(mongoDatabase.runCommand(Document(&quot;ping&quot; -&gt; 1)).toFuture, 30.seconds))</span><span style=''> match {
+</span>44 <span style=''>      case Failure(exception) =&gt;
+</span>45 <span style=''>        </span><span style='background: #F0ADAD'>logger.error(s&quot;Could not connect to Mongo on bootstrap. Error: ${exception.printInfo}&quot;)</span><span style=''>
+</span>46 <span style=''>        </span><span style='background: #F0ADAD'>throw exception</span><span style=''>
+</span>47 <span style=''>      case Success(value) =&gt;
+</span>48 <span style=''>        value
+</span>49 <span style=''>    }
+</span>50 <span style=''>
+</span>51 <span style=''>
+</span>52 <span style=''>}
+</span></pre>
+          </div>
+          <div class="tab-pane" id="statementlist">
+            <table cellspacing="0" cellpadding="0" class="table statementlist">
+      <tr>
+        <th>Line</th>
+        <th>Stmt Id</th>
+        <th>Pos</th>
+        <th>Tree</th>
+        <th>Symbol</th>
+        <th>Code</th>
+      </tr><tr>
+        <td>
+          23
+        </td>
+        <td>
+          1
+        </td>
+        <td>
+          785
+          -
+          805
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.typesafe.config.ConfigFactory.load
+        </td>
+        <td style="background: #F0ADAD">
+          com.typesafe.config.ConfigFactory.load()
+        </td>
+      </tr><tr>
+        <td>
+          24
+        </td>
+        <td>
+          2
+        </td>
+        <td>
+          847
+          -
+          860
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.lang.Object.getClass
+        </td>
+        <td style="background: #F0ADAD">
+          this.getClass()
+        </td>
+      </tr><tr>
+        <td>
+          24
+        </td>
+        <td>
+          3
+        </td>
+        <td>
+          830
+          -
+          861
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          org.apache.log4j.Logger.getLogger
+        </td>
+        <td style="background: #F0ADAD">
+          org.apache.log4j.Logger.getLogger(this.getClass())
+        </td>
+      </tr><tr>
+        <td>
+          25
+        </td>
+        <td>
+          5
+        </td>
+        <td>
+          882
+          -
+          922
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          org.mongodb.scala.MongoClient.apply
+        </td>
+        <td style="background: #F0ADAD">
+          org.mongodb.scala.MongoClient.apply(MongoApplication.this.conf.getString(&quot;mongo.url&quot;))
+        </td>
+      </tr><tr>
+        <td>
+          25
+        </td>
+        <td>
+          4
+        </td>
+        <td>
+          894
+          -
+          921
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.typesafe.config.Config.getString
+        </td>
+        <td style="background: #F0ADAD">
+          MongoApplication.this.conf.getString(&quot;mongo.url&quot;)
+        </td>
+      </tr><tr>
+        <td>
+          26
+        </td>
+        <td>
+          8
+        </td>
+        <td>
+          945
+          -
+          1013
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          org.bson.codecs.configuration.CodecRegistries.fromRegistries
+        </td>
+        <td style="background: #F0ADAD">
+          org.bson.codecs.configuration.CodecRegistries.fromRegistries(org.bson.codecs.configuration.CodecRegistries.fromProviders({
+  import org.bson.codecs.Codec;
+  import org.bson.codecs.configuration.{CodecProvider, CodecRegistry};
+  {
+    final class $anon extends Object with org.bson.codecs.configuration.CodecProvider {
+      def &lt;init&gt;(): &lt;$anon: org.bson.codecs.configuration.CodecProvider&gt; = {
+        $anon.super.&lt;init&gt;();
+        ()
+      };
+      @SuppressWarnings(value = [&quot;unchecked&quot;]) def get[C](clazz: Class[C], codecRegistry: org.bson.codecs.configuration.CodecRegistry): org.bson.codecs.Codec[C] = if (classOf[com.knoldus.domain.User].isAssignableFrom(clazz))
+        {
+  import scala.collection.mutable;
+  import org.bson.{BsonInvalidOperationException, BsonWriter};
+  import org.bson.codecs.EncoderContext;
+  import org.bson.codecs.configuration.CodecRegistry;
+  import org.mongodb.scala.bson.codecs.macrocodecs.MacroCodec;
+  case class UserMacroCodec extends Object with org.mongodb.scala.bson.codecs.macrocodecs.MacroCodec[com.knoldus.domain.User] with Product with Serializable {
+    &lt;caseaccessor&gt; &lt;paramaccessor&gt; private[this] val codecRegistry: org.bson.codecs.configuration.CodecRegistry = _;
+    &lt;stable&gt; &lt;caseaccessor&gt; &lt;accessor&gt; &lt;paramaccessor&gt; def codecRegistry: org.bson.codecs.configuration.CodecRegistry = UserMacroCodec.this.codecRegistry;
+    def &lt;init&gt;(codecRegistry: org.bson.codecs.configuration.CodecRegistry): UserMacroCodec = {
+      UserMacroCodec.super.&lt;init&gt;();
+      ()
+    };
+    private[this] val caseClassesMap: scala.collection.immutable.Map[String,Class[_]] = {
+      val caseClassesMap: scala.collection.mutable.Map[String,Class[_]] = scala.collection.mutable.Map.apply[String, Class[_]]();
+      caseClassesMap.+=(scala.Predef.ArrowAssoc[String](&quot;User&quot;).-&gt;[Class[com.knoldus.domain.User]](classOf[com.knoldus.domain.User]));
+      caseClassesMap.toMap[String, Class[_]](scala.Predef.$conforms[(String, Class[_])])
+    };
+    &lt;stable&gt; &lt;accessor&gt; def caseClassesMap: scala.collection.immutable.Map[String,Class[_]] = UserMacroCodec.this.caseClassesMap;
+    private[this] val classToCaseClassMap: scala.collection.immutable.Map[Class[_],Boolean] = {
+      val classToCaseClassMap: scala.collection.mutable.Map[Class[_],Boolean] = scala.collection.mutable.Map.apply[Class[_], Boolean]();
+      classToCaseClassMap.++=(scala.collection.immutable.List.apply[(Class[org.bson.types.ObjectId], Boolean)](scala.Tuple2.apply[Class[org.bson.types.ObjectId], Boolean](classOf[org.bson.types.ObjectId], false)));
+      classToCaseClassMap.++=(scala.collection.immutable.List.apply[(Class[String], Boolean)](scala.Tuple2.apply[Class[String], Boolean](classOf[java.lang.String], false)));
+      classToCaseClassMap.++=(scala.collection.immutable.List.apply[(Class[String], Boolean)](scala.Tuple2.apply[Class[String], Boolean](classOf[java.lang.String], false)));
+      classToCaseClassMap.++=(scala.collection.immutable.List.apply[(Class[String], Boolean)](scala.Tuple2.apply[Class[String], Boolean](classOf[java.lang.String], false)));
+      classToCaseClassMap.++=(scala.collection.immutable.List.apply[(Class[String], Boolean)](scala.Tuple2.apply[Class[String], Boolean](classOf[java.lang.String], false)));
+      classToCaseClassMap.++=(scala.collection.immutable.List.apply[(Class[Integer], Boolean)](scala.Tuple2.apply[Class[Integer], Boolean](classOf[java.lang.Integer], false)));
+      classToCaseClassMap.++=(scala.collection.immutable.List.apply[(Class[String], Boolean)](scala.Tuple2.apply[Class[String], Boolean](classOf[java.lang.String], false)));
+      classToCaseClassMap.++=(scala.collection.immutable.List.apply[(Class[com.knoldus.domain.User], Boolean)](scala.Tuple2.apply[Class[com.knoldus.domain.User], Boolean](classOf[com.knoldus.domain.User], true)));
+      classToCaseClassMap.toMap[Class[_], Boolean](scala.Predef.$conforms[(Class[_], Boolean)])
+    };
+    &lt;stable&gt; &lt;accessor&gt; def classToCaseClassMap: scala.collection.immutable.Map[Class[_],Boolean] = UserMacroCodec.this.classToCaseClassMap;
+    private[this] val classFieldTypeArgsMap: scala.collection.immutable.Map[String,Map[String,List[Class[_]]]] = {
+      val classFieldTypeArgs: scala.collection.mutable.Map[String,scala.collection.immutable.Map[String,List[Class[_]]]] = scala.collection.mutable.Map.apply[String, Map[String,List[Class[_]]]]();
+      classFieldTypeArgs.+=(scala.Predef.ArrowAssoc[String](&quot;User&quot;).-&gt;[scala.collection.immutable.Map[String,List[Class[_]]]]({
+        val typeArgs: scala.collection.mutable.Map[String,List[Class[_]]] = scala.collection.mutable.Map.apply[String, List[Class[_]]]();
+        typeArgs.+=(scala.Predef.ArrowAssoc[String](&quot;_id&quot;).-&gt;[List[Class[_]]]({
+          val tpeArgs: scala.collection.mutable.ListBuffer[Class[_]] = scala.collection.mutable.ListBuffer.empty[Class[_]];
+          tpeArgs.+=(classOf[org.bson.types.ObjectId]);
+          tpeArgs.toList
+        }));
+        typeArgs.+=(scala.Predef.ArrowAssoc[String](&quot;firstName&quot;).-&gt;[List[Class[_]]]({
+          val tpeArgs: scala.collection.mutable.ListBuffer[Class[_]] = scala.collection.mutable.ListBuffer.empty[Class[_]];
+          tpeArgs.+=(classOf[java.lang.String]);
+          tpeArgs.toList
+        }));
+        typeArgs.+=(scala.Predef.ArrowAssoc[String](&quot;lastName&quot;).-&gt;[List[Class[_]]]({
+          val tpeArgs: scala.collection.mutable.ListBuffer[Class[_]] = scala.collection.mutable.ListBuffer.empty[Class[_]];
+          tpeArgs.+=(classOf[java.lang.String]);
+          tpeArgs.toList
+        }));
+        typeArgs.+=(scala.Predef.ArrowAssoc[String](&quot;country&quot;).-&gt;[List[Class[_]]]({
+          val tpeArgs: scala.collection.mutable.ListBuffer[Class[_]] = scala.collection.mutable.ListBuffer.empty[Class[_]];
+          tpeArgs.+=(classOf[java.lang.String]);
+          tpeArgs.toList
+        }));
+        typeArgs.+=(scala.Predef.ArrowAssoc[String](&quot;dob&quot;).-&gt;[List[Class[_]]]({
+          val tpeArgs: scala.collection.mutable.ListBuffer[Class[_]] = scala.collection.mutable.ListBuffer.empty[Class[_]];
+          tpeArgs.+=(classOf[java.lang.String]);
+          tpeArgs.toList
+        }));
+        typeArgs.+=(scala.Predef.ArrowAssoc[String](&quot;mobileNumber&quot;).-&gt;[List[Class[_]]]({
+          val tpeArgs: scala.collection.mutable.ListBuffer[Class[_]] = scala.collection.mutable.ListBuffer.empty[Class[_]];
+          tpeArgs.+=(classOf[java.lang.Integer]);
+          tpeArgs.toList
+        }));
+        typeArgs.+=(scala.Predef.ArrowAssoc[String](&quot;address&quot;).-&gt;[List[Class[_]]]({
+          val tpeArgs: scala.collection.mutable.ListBuffer[Class[_]] = scala.collection.mutable.ListBuffer.empty[Class[_]];
+          tpeArgs.+=(classOf[java.lang.String]);
+          tpeArgs.toList
+        }));
+        typeArgs.toMap[String, List[Class[_]]](scala.Predef.$conforms[(String, List[Class[_]])])
+      }));
+      classFieldTypeArgs.toMap[String, Map[String,List[Class[_]]]](scala.Predef.$conforms[(String, scala.collection.immutable.Map[String,List[Class[_]]])])
+    };
+    &lt;stable&gt; &lt;accessor&gt; def classFieldTypeArgsMap: scala.collection.immutable.Map[String,Map[String,List[Class[_]]]] = UserMacroCodec.this.classFieldTypeArgsMap;
+    private[this] val encoderClass: Class[com.knoldus.domain.User] = classOf[com.knoldus.domain.User];
+    &lt;stable&gt; &lt;accessor&gt; def encoderClass: Class[com.knoldus.domain.User] = UserMacroCodec.this.encoderClass;
+    def getInstance(className: String, fieldData: Map[String,Any]): com.knoldus.domain.User = className match {
+      case &quot;User&quot; =&gt; new com.knoldus.domain.User(fieldData.getOrElse[Any](&quot;_id&quot;, throw new org.bson.BsonInvalidOperationException(&quot;Missing field: \&quot;_id\&quot;&quot;)).asInstanceOf[org.mongodb.scala.bson.ObjectId], fieldData.getOrElse[Any](&quot;firstName&quot;, throw new org.bson.BsonInvalidOperationException(&quot;Missing field: \&quot;firstName\&quot;&quot;)).asInstanceOf[String], fieldData.getOrElse[Any](&quot;lastName&quot;, throw new org.bson.BsonInvalidOperationException(&quot;Missing field: \&quot;lastName\&quot;&quot;)).asInstanceOf[String], fieldData.getOrElse[Any](&quot;country&quot;, throw new org.bson.BsonInvalidOperationException(&quot;Missing field: \&quot;country\&quot;&quot;)).asInstanceOf[String], fieldData.getOrElse[Any](&quot;dob&quot;, throw new org.bson.BsonInvalidOperationException(&quot;Missing field: \&quot;dob\&quot;&quot;)).asInstanceOf[String], fieldData.getOrElse[Any](&quot;mobileNumber&quot;, throw new org.bson.BsonInvalidOperationException(&quot;Missing field: \&quot;mobileNumber\&quot;&quot;)).asInstanceOf[Int], fieldData.getOrElse[Any](&quot;address&quot;, throw new org.bson.BsonInvalidOperationException(&quot;Missing field: \&quot;address\&quot;&quot;)).asInstanceOf[String])
+      case _ =&gt; throw new org.bson.BsonInvalidOperationException(&quot;Unexpected class type: &quot;.+(className))
+    };
+    def writeCaseClassData(className: String, writer: org.bson.BsonWriter, value: com.knoldus.domain.User, encoderContext: org.bson.codecs.EncoderContext): Unit = {
+      writer.writeStartDocument();
+      this.writeClassFieldName(writer, className, encoderContext);
+      className match {
+        case &quot;User&quot; =&gt; {
+          val instanceValue: com.knoldus.domain.User = value.asInstanceOf[com.knoldus.domain.User];
+          {
+            val localVal: org.mongodb.scala.bson.ObjectId = instanceValue._id;
+            writer.writeName(&quot;_id&quot;);
+            this.writeFieldValue[org.mongodb.scala.bson.ObjectId](&quot;_id&quot;, writer, localVal, encoderContext)
+          };
+          {
+            val localVal: String = instanceValue.firstName;
+            writer.writeName(&quot;firstName&quot;);
+            this.writeFieldValue[String](&quot;firstName&quot;, writer, localVal, encoderContext)
+          };
+          {
+            val localVal: String = instanceValue.lastName;
+            writer.writeName(&quot;lastName&quot;);
+            this.writeFieldValue[String](&quot;lastName&quot;, writer, localVal, encoderContext)
+          };
+          {
+            val localVal: String = instanceValue.country;
+            writer.writeName(&quot;country&quot;);
+            this.writeFieldValue[String](&quot;country&quot;, writer, localVal, encoderContext)
+          };
+          {
+            val localVal: String = instanceValue.dob;
+            writer.writeName(&quot;dob&quot;);
+            this.writeFieldValue[String](&quot;dob&quot;, writer, localVal, encoderContext)
+          };
+          {
+            val localVal: Int = instanceValue.mobileNumber;
+            writer.writeName(&quot;mobileNumber&quot;);
+            this.writeFieldValue[Int](&quot;mobileNumber&quot;, writer, localVal, encoderContext)
+          };
+          {
+            val localVal: String = instanceValue.address;
+            writer.writeName(&quot;address&quot;);
+            this.writeFieldValue[String](&quot;address&quot;, writer, localVal, encoderContext)
+          }
+        }
+      };
+      writer.writeEndDocument()
+    };
+    &lt;synthetic&gt; def copy(codecRegistry: org.bson.codecs.configuration.CodecRegistry = codecRegistry): UserMacroCodec = new UserMacroCodec(codecRegistry);
+    &lt;synthetic&gt; def copy$default$1: org.bson.codecs.configuration.CodecRegistry = UserMacroCodec.this.codecRegistry;
+    override &lt;synthetic&gt; def productPrefix: String = &quot;UserMacroCodec&quot;;
+    &lt;synthetic&gt; def productArity: Int = 1;
+    &lt;synthetic&gt; def productElement(x$1: Int): Any = x$1 match {
+      case 0 =&gt; UserMacroCodec.this.codecRegistry
+      case _ =&gt; throw new IndexOutOfBoundsException(x$1.toString())
+    };
+    override &lt;synthetic&gt; def productIterator: Iterator[Any] = scala.runtime.ScalaRunTime.typedProductIterator[Any](UserMacroCodec.this);
+    &lt;synthetic&gt; def canEqual(x$1: Any): Boolean = x$1.$isInstanceOf[UserMacroCodec]();
+    override &lt;synthetic&gt; def hashCode(): Int = scala.runtime.ScalaRunTime._hashCode(UserMacroCodec.this);
+    override &lt;synthetic&gt; def toString(): String = scala.runtime.ScalaRunTime._toString(UserMacroCodec.this);
+    override &lt;synthetic&gt; def equals(x$1: Any): Boolean = UserMacroCodec.this.eq(x$1.asInstanceOf[Object]).||(x$1 match {
+  case (_: UserMacroCodec) =&gt; true
+  case _ =&gt; false
+}.&amp;&amp;({
+      &lt;synthetic&gt; val UserMacroCodec$1: UserMacroCodec = x$1.asInstanceOf[UserMacroCodec];
+      UserMacroCodec.this.codecRegistry.==(UserMacroCodec$1.codecRegistry).&amp;&amp;(UserMacroCodec$1.canEqual(UserMacroCodec.this))
+    }))
+  };
+  &lt;synthetic&gt; object UserMacroCodec extends scala.runtime.AbstractFunction1[org.bson.codecs.configuration.CodecRegistry,UserMacroCodec] with Serializable {
+    def &lt;init&gt;(): UserMacroCodec.type = {
+      UserMacroCodec.super.&lt;init&gt;();
+      ()
+    };
+    final override &lt;synthetic&gt; def toString(): String = &quot;UserMacroCodec&quot;;
+    case &lt;synthetic&gt; def apply(codecRegistry: org.bson.codecs.configuration.CodecRegistry): UserMacroCodec = new UserMacroCodec(codecRegistry);
+    case &lt;synthetic&gt; def unapply(x$0: UserMacroCodec): Option[org.bson.codecs.configuration.CodecRegistry] = if (x$0.==(null))
+      scala.None
+    else
+      Some.apply[org.bson.codecs.configuration.CodecRegistry](x$0.codecRegistry)
+  };
+  UserMacroCodec.apply(codecRegistry).asInstanceOf[org.bson.codecs.Codec[com.knoldus.domain.User]]
+}.asInstanceOf[org.bson.codecs.Codec[C]]
+      else
+        null
+    };
+    new $anon()
+  }
+}), org.mongodb.scala.bson.codecs.`package`.DEFAULT_CODEC_REGISTRY)
+        </td>
+      </tr><tr>
+        <td>
+          26
+        </td>
+        <td>
+          7
+        </td>
+        <td>
+          990
+          -
+          1012
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          org.mongodb.scala.bson.codecs.DEFAULT_CODEC_REGISTRY
+        </td>
+        <td style="background: #F0ADAD">
+          org.mongodb.scala.bson.codecs.`package`.DEFAULT_CODEC_REGISTRY
+        </td>
+      </tr><tr>
+        <td>
+          26
+        </td>
+        <td>
+          6
+        </td>
+        <td>
+          960
+          -
+          988
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          org.bson.codecs.configuration.CodecRegistries.fromProviders
+        </td>
+        <td style="background: #F0ADAD">
+          org.bson.codecs.configuration.CodecRegistries.fromProviders({
+  import org.bson.codecs.Codec;
+  import org.bson.codecs.configuration.{CodecProvider, CodecRegistry};
+  {
+    final class $anon extends Object with org.bson.codecs.configuration.CodecProvider {
+      def &lt;init&gt;(): &lt;$anon: org.bson.codecs.configuration.CodecProvider&gt; = {
+        $anon.super.&lt;init&gt;();
+        ()
+      };
+      @SuppressWarnings(value = [&quot;unchecked&quot;]) def get[C](clazz: Class[C], codecRegistry: org.bson.codecs.configuration.CodecRegistry): org.bson.codecs.Codec[C] = if (classOf[com.knoldus.domain.User].isAssignableFrom(clazz))
+        {
+  import scala.collection.mutable;
+  import org.bson.{BsonInvalidOperationException, BsonWriter};
+  import org.bson.codecs.EncoderContext;
+  import org.bson.codecs.configuration.CodecRegistry;
+  import org.mongodb.scala.bson.codecs.macrocodecs.MacroCodec;
+  case class UserMacroCodec extends Object with org.mongodb.scala.bson.codecs.macrocodecs.MacroCodec[com.knoldus.domain.User] with Product with Serializable {
+    &lt;caseaccessor&gt; &lt;paramaccessor&gt; private[this] val codecRegistry: org.bson.codecs.configuration.CodecRegistry = _;
+    &lt;stable&gt; &lt;caseaccessor&gt; &lt;accessor&gt; &lt;paramaccessor&gt; def codecRegistry: org.bson.codecs.configuration.CodecRegistry = UserMacroCodec.this.codecRegistry;
+    def &lt;init&gt;(codecRegistry: org.bson.codecs.configuration.CodecRegistry): UserMacroCodec = {
+      UserMacroCodec.super.&lt;init&gt;();
+      ()
+    };
+    private[this] val caseClassesMap: scala.collection.immutable.Map[String,Class[_]] = {
+      val caseClassesMap: scala.collection.mutable.Map[String,Class[_]] = scala.collection.mutable.Map.apply[String, Class[_]]();
+      caseClassesMap.+=(scala.Predef.ArrowAssoc[String](&quot;User&quot;).-&gt;[Class[com.knoldus.domain.User]](classOf[com.knoldus.domain.User]));
+      caseClassesMap.toMap[String, Class[_]](scala.Predef.$conforms[(String, Class[_])])
+    };
+    &lt;stable&gt; &lt;accessor&gt; def caseClassesMap: scala.collection.immutable.Map[String,Class[_]] = UserMacroCodec.this.caseClassesMap;
+    private[this] val classToCaseClassMap: scala.collection.immutable.Map[Class[_],Boolean] = {
+      val classToCaseClassMap: scala.collection.mutable.Map[Class[_],Boolean] = scala.collection.mutable.Map.apply[Class[_], Boolean]();
+      classToCaseClassMap.++=(scala.collection.immutable.List.apply[(Class[org.bson.types.ObjectId], Boolean)](scala.Tuple2.apply[Class[org.bson.types.ObjectId], Boolean](classOf[org.bson.types.ObjectId], false)));
+      classToCaseClassMap.++=(scala.collection.immutable.List.apply[(Class[String], Boolean)](scala.Tuple2.apply[Class[String], Boolean](classOf[java.lang.String], false)));
+      classToCaseClassMap.++=(scala.collection.immutable.List.apply[(Class[String], Boolean)](scala.Tuple2.apply[Class[String], Boolean](classOf[java.lang.String], false)));
+      classToCaseClassMap.++=(scala.collection.immutable.List.apply[(Class[String], Boolean)](scala.Tuple2.apply[Class[String], Boolean](classOf[java.lang.String], false)));
+      classToCaseClassMap.++=(scala.collection.immutable.List.apply[(Class[String], Boolean)](scala.Tuple2.apply[Class[String], Boolean](classOf[java.lang.String], false)));
+      classToCaseClassMap.++=(scala.collection.immutable.List.apply[(Class[Integer], Boolean)](scala.Tuple2.apply[Class[Integer], Boolean](classOf[java.lang.Integer], false)));
+      classToCaseClassMap.++=(scala.collection.immutable.List.apply[(Class[String], Boolean)](scala.Tuple2.apply[Class[String], Boolean](classOf[java.lang.String], false)));
+      classToCaseClassMap.++=(scala.collection.immutable.List.apply[(Class[com.knoldus.domain.User], Boolean)](scala.Tuple2.apply[Class[com.knoldus.domain.User], Boolean](classOf[com.knoldus.domain.User], true)));
+      classToCaseClassMap.toMap[Class[_], Boolean](scala.Predef.$conforms[(Class[_], Boolean)])
+    };
+    &lt;stable&gt; &lt;accessor&gt; def classToCaseClassMap: scala.collection.immutable.Map[Class[_],Boolean] = UserMacroCodec.this.classToCaseClassMap;
+    private[this] val classFieldTypeArgsMap: scala.collection.immutable.Map[String,Map[String,List[Class[_]]]] = {
+      val classFieldTypeArgs: scala.collection.mutable.Map[String,scala.collection.immutable.Map[String,List[Class[_]]]] = scala.collection.mutable.Map.apply[String, Map[String,List[Class[_]]]]();
+      classFieldTypeArgs.+=(scala.Predef.ArrowAssoc[String](&quot;User&quot;).-&gt;[scala.collection.immutable.Map[String,List[Class[_]]]]({
+        val typeArgs: scala.collection.mutable.Map[String,List[Class[_]]] = scala.collection.mutable.Map.apply[String, List[Class[_]]]();
+        typeArgs.+=(scala.Predef.ArrowAssoc[String](&quot;_id&quot;).-&gt;[List[Class[_]]]({
+          val tpeArgs: scala.collection.mutable.ListBuffer[Class[_]] = scala.collection.mutable.ListBuffer.empty[Class[_]];
+          tpeArgs.+=(classOf[org.bson.types.ObjectId]);
+          tpeArgs.toList
+        }));
+        typeArgs.+=(scala.Predef.ArrowAssoc[String](&quot;firstName&quot;).-&gt;[List[Class[_]]]({
+          val tpeArgs: scala.collection.mutable.ListBuffer[Class[_]] = scala.collection.mutable.ListBuffer.empty[Class[_]];
+          tpeArgs.+=(classOf[java.lang.String]);
+          tpeArgs.toList
+        }));
+        typeArgs.+=(scala.Predef.ArrowAssoc[String](&quot;lastName&quot;).-&gt;[List[Class[_]]]({
+          val tpeArgs: scala.collection.mutable.ListBuffer[Class[_]] = scala.collection.mutable.ListBuffer.empty[Class[_]];
+          tpeArgs.+=(classOf[java.lang.String]);
+          tpeArgs.toList
+        }));
+        typeArgs.+=(scala.Predef.ArrowAssoc[String](&quot;country&quot;).-&gt;[List[Class[_]]]({
+          val tpeArgs: scala.collection.mutable.ListBuffer[Class[_]] = scala.collection.mutable.ListBuffer.empty[Class[_]];
+          tpeArgs.+=(classOf[java.lang.String]);
+          tpeArgs.toList
+        }));
+        typeArgs.+=(scala.Predef.ArrowAssoc[String](&quot;dob&quot;).-&gt;[List[Class[_]]]({
+          val tpeArgs: scala.collection.mutable.ListBuffer[Class[_]] = scala.collection.mutable.ListBuffer.empty[Class[_]];
+          tpeArgs.+=(classOf[java.lang.String]);
+          tpeArgs.toList
+        }));
+        typeArgs.+=(scala.Predef.ArrowAssoc[String](&quot;mobileNumber&quot;).-&gt;[List[Class[_]]]({
+          val tpeArgs: scala.collection.mutable.ListBuffer[Class[_]] = scala.collection.mutable.ListBuffer.empty[Class[_]];
+          tpeArgs.+=(classOf[java.lang.Integer]);
+          tpeArgs.toList
+        }));
+        typeArgs.+=(scala.Predef.ArrowAssoc[String](&quot;address&quot;).-&gt;[List[Class[_]]]({
+          val tpeArgs: scala.collection.mutable.ListBuffer[Class[_]] = scala.collection.mutable.ListBuffer.empty[Class[_]];
+          tpeArgs.+=(classOf[java.lang.String]);
+          tpeArgs.toList
+        }));
+        typeArgs.toMap[String, List[Class[_]]](scala.Predef.$conforms[(String, List[Class[_]])])
+      }));
+      classFieldTypeArgs.toMap[String, Map[String,List[Class[_]]]](scala.Predef.$conforms[(String, scala.collection.immutable.Map[String,List[Class[_]]])])
+    };
+    &lt;stable&gt; &lt;accessor&gt; def classFieldTypeArgsMap: scala.collection.immutable.Map[String,Map[String,List[Class[_]]]] = UserMacroCodec.this.classFieldTypeArgsMap;
+    private[this] val encoderClass: Class[com.knoldus.domain.User] = classOf[com.knoldus.domain.User];
+    &lt;stable&gt; &lt;accessor&gt; def encoderClass: Class[com.knoldus.domain.User] = UserMacroCodec.this.encoderClass;
+    def getInstance(className: String, fieldData: Map[String,Any]): com.knoldus.domain.User = className match {
+      case &quot;User&quot; =&gt; new com.knoldus.domain.User(fieldData.getOrElse[Any](&quot;_id&quot;, throw new org.bson.BsonInvalidOperationException(&quot;Missing field: \&quot;_id\&quot;&quot;)).asInstanceOf[org.mongodb.scala.bson.ObjectId], fieldData.getOrElse[Any](&quot;firstName&quot;, throw new org.bson.BsonInvalidOperationException(&quot;Missing field: \&quot;firstName\&quot;&quot;)).asInstanceOf[String], fieldData.getOrElse[Any](&quot;lastName&quot;, throw new org.bson.BsonInvalidOperationException(&quot;Missing field: \&quot;lastName\&quot;&quot;)).asInstanceOf[String], fieldData.getOrElse[Any](&quot;country&quot;, throw new org.bson.BsonInvalidOperationException(&quot;Missing field: \&quot;country\&quot;&quot;)).asInstanceOf[String], fieldData.getOrElse[Any](&quot;dob&quot;, throw new org.bson.BsonInvalidOperationException(&quot;Missing field: \&quot;dob\&quot;&quot;)).asInstanceOf[String], fieldData.getOrElse[Any](&quot;mobileNumber&quot;, throw new org.bson.BsonInvalidOperationException(&quot;Missing field: \&quot;mobileNumber\&quot;&quot;)).asInstanceOf[Int], fieldData.getOrElse[Any](&quot;address&quot;, throw new org.bson.BsonInvalidOperationException(&quot;Missing field: \&quot;address\&quot;&quot;)).asInstanceOf[String])
+      case _ =&gt; throw new org.bson.BsonInvalidOperationException(&quot;Unexpected class type: &quot;.+(className))
+    };
+    def writeCaseClassData(className: String, writer: org.bson.BsonWriter, value: com.knoldus.domain.User, encoderContext: org.bson.codecs.EncoderContext): Unit = {
+      writer.writeStartDocument();
+      this.writeClassFieldName(writer, className, encoderContext);
+      className match {
+        case &quot;User&quot; =&gt; {
+          val instanceValue: com.knoldus.domain.User = value.asInstanceOf[com.knoldus.domain.User];
+          {
+            val localVal: org.mongodb.scala.bson.ObjectId = instanceValue._id;
+            writer.writeName(&quot;_id&quot;);
+            this.writeFieldValue[org.mongodb.scala.bson.ObjectId](&quot;_id&quot;, writer, localVal, encoderContext)
+          };
+          {
+            val localVal: String = instanceValue.firstName;
+            writer.writeName(&quot;firstName&quot;);
+            this.writeFieldValue[String](&quot;firstName&quot;, writer, localVal, encoderContext)
+          };
+          {
+            val localVal: String = instanceValue.lastName;
+            writer.writeName(&quot;lastName&quot;);
+            this.writeFieldValue[String](&quot;lastName&quot;, writer, localVal, encoderContext)
+          };
+          {
+            val localVal: String = instanceValue.country;
+            writer.writeName(&quot;country&quot;);
+            this.writeFieldValue[String](&quot;country&quot;, writer, localVal, encoderContext)
+          };
+          {
+            val localVal: String = instanceValue.dob;
+            writer.writeName(&quot;dob&quot;);
+            this.writeFieldValue[String](&quot;dob&quot;, writer, localVal, encoderContext)
+          };
+          {
+            val localVal: Int = instanceValue.mobileNumber;
+            writer.writeName(&quot;mobileNumber&quot;);
+            this.writeFieldValue[Int](&quot;mobileNumber&quot;, writer, localVal, encoderContext)
+          };
+          {
+            val localVal: String = instanceValue.address;
+            writer.writeName(&quot;address&quot;);
+            this.writeFieldValue[String](&quot;address&quot;, writer, localVal, encoderContext)
+          }
+        }
+      };
+      writer.writeEndDocument()
+    };
+    &lt;synthetic&gt; def copy(codecRegistry: org.bson.codecs.configuration.CodecRegistry = codecRegistry): UserMacroCodec = new UserMacroCodec(codecRegistry);
+    &lt;synthetic&gt; def copy$default$1: org.bson.codecs.configuration.CodecRegistry = UserMacroCodec.this.codecRegistry;
+    override &lt;synthetic&gt; def productPrefix: String = &quot;UserMacroCodec&quot;;
+    &lt;synthetic&gt; def productArity: Int = 1;
+    &lt;synthetic&gt; def productElement(x$1: Int): Any = x$1 match {
+      case 0 =&gt; UserMacroCodec.this.codecRegistry
+      case _ =&gt; throw new IndexOutOfBoundsException(x$1.toString())
+    };
+    override &lt;synthetic&gt; def productIterator: Iterator[Any] = scala.runtime.ScalaRunTime.typedProductIterator[Any](UserMacroCodec.this);
+    &lt;synthetic&gt; def canEqual(x$1: Any): Boolean = x$1.$isInstanceOf[UserMacroCodec]();
+    override &lt;synthetic&gt; def hashCode(): Int = scala.runtime.ScalaRunTime._hashCode(UserMacroCodec.this);
+    override &lt;synthetic&gt; def toString(): String = scala.runtime.ScalaRunTime._toString(UserMacroCodec.this);
+    override &lt;synthetic&gt; def equals(x$1: Any): Boolean = UserMacroCodec.this.eq(x$1.asInstanceOf[Object]).||(x$1 match {
+  case (_: UserMacroCodec) =&gt; true
+  case _ =&gt; false
+}.&amp;&amp;({
+      &lt;synthetic&gt; val UserMacroCodec$1: UserMacroCodec = x$1.asInstanceOf[UserMacroCodec];
+      UserMacroCodec.this.codecRegistry.==(UserMacroCodec$1.codecRegistry).&amp;&amp;(UserMacroCodec$1.canEqual(UserMacroCodec.this))
+    }))
+  };
+  &lt;synthetic&gt; object UserMacroCodec extends scala.runtime.AbstractFunction1[org.bson.codecs.configuration.CodecRegistry,UserMacroCodec] with Serializable {
+    def &lt;init&gt;(): UserMacroCodec.type = {
+      UserMacroCodec.super.&lt;init&gt;();
+      ()
+    };
+    final override &lt;synthetic&gt; def toString(): String = &quot;UserMacroCodec&quot;;
+    case &lt;synthetic&gt; def apply(codecRegistry: org.bson.codecs.configuration.CodecRegistry): UserMacroCodec = new UserMacroCodec(codecRegistry);
+    case &lt;synthetic&gt; def unapply(x$0: UserMacroCodec): Option[org.bson.codecs.configuration.CodecRegistry] = if (x$0.==(null))
+      scala.None
+    else
+      Some.apply[org.bson.codecs.configuration.CodecRegistry](x$0.codecRegistry)
+  };
+  UserMacroCodec.apply(codecRegistry).asInstanceOf[org.bson.codecs.Codec[com.knoldus.domain.User]]
+}.asInstanceOf[org.bson.codecs.Codec[C]]
+      else
+        null
+    };
+    new $anon()
+  }
+})
+        </td>
+      </tr><tr>
+        <td>
+          27
+        </td>
+        <td>
+          11
+        </td>
+        <td>
+          1051
+          -
+          1140
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          org.mongodb.scala.MongoDatabase.withCodecRegistry
+        </td>
+        <td style="background: #F0ADAD">
+          MongoApplication.this.mongoClient.getDatabase(MongoApplication.this.conf.getString(&quot;mongo.db-name&quot;)).withCodecRegistry(MongoApplication.this.codecRegistry)
+        </td>
+      </tr><tr>
+        <td>
+          27
+        </td>
+        <td>
+          10
+        </td>
+        <td>
+          1126
+          -
+          1139
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.db.MongoApplication.codecRegistry
+        </td>
+        <td style="background: #F0ADAD">
+          MongoApplication.this.codecRegistry
+        </td>
+      </tr><tr>
+        <td>
+          27
+        </td>
+        <td>
+          9
+        </td>
+        <td>
+          1075
+          -
+          1106
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.typesafe.config.Config.getString
+        </td>
+        <td style="background: #F0ADAD">
+          MongoApplication.this.conf.getString(&quot;mongo.db-name&quot;)
+        </td>
+      </tr><tr>
+        <td>
+          28
+        </td>
+        <td>
+          14
+        </td>
+        <td>
+          1183
+          -
+          1251
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          org.mongodb.scala.MongoDatabase.getCollection
+        </td>
+        <td style="background: #F0ADAD">
+          MongoApplication.this.mongoDatabase.getCollection[com.knoldus.domain.User](MongoApplication.this.conf.getString(&quot;mongo.collection-name&quot;))(DefaultHelper.this.DefaultsTo.overrideDefault[com.knoldus.domain.User, org.mongodb.scala.Document], (ClassTag.apply[com.knoldus.domain.User](classOf[com.knoldus.domain.User]): scala.reflect.ClassTag[com.knoldus.domain.User]))
+        </td>
+      </tr><tr>
+        <td>
+          28
+        </td>
+        <td>
+          13
+        </td>
+        <td>
+          1210
+          -
+          1210
+        </td>
+        <td>
+          TypeApply
+        </td>
+        <td>
+          org.mongodb.scala.bson.DefaultHelper.LowPriorityDefaultsTo.overrideDefault
+        </td>
+        <td style="background: #F0ADAD">
+          DefaultHelper.this.DefaultsTo.overrideDefault[com.knoldus.domain.User, org.mongodb.scala.Document]
+        </td>
+      </tr><tr>
+        <td>
+          28
+        </td>
+        <td>
+          12
+        </td>
+        <td>
+          1211
+          -
+          1250
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.typesafe.config.Config.getString
+        </td>
+        <td style="background: #F0ADAD">
+          MongoApplication.this.conf.getString(&quot;mongo.collection-name&quot;)
+        </td>
+      </tr><tr>
+        <td>
+          30
+        </td>
+        <td>
+          16
+        </td>
+        <td>
+          1255
+          -
+          1287
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.db.MongoApplication.tryConnectToMongo
+        </td>
+        <td style="background: #F0ADAD">
+          MongoApplication.this.tryConnectToMongo(MongoApplication.this.mongoDatabase)
+        </td>
+      </tr><tr>
+        <td>
+          30
+        </td>
+        <td>
+          15
+        </td>
+        <td>
+          1273
+          -
+          1286
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.db.MongoApplication.mongoDatabase
+        </td>
+        <td style="background: #F0ADAD">
+          MongoApplication.this.mongoDatabase
+        </td>
+      </tr><tr>
+        <td>
+          32
+        </td>
+        <td>
+          17
+        </td>
+        <td>
+          1313
+          -
+          1326
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.db.MongoApplication.mongoDatabase
+        </td>
+        <td style="background: #F0ADAD">
+          MongoApplication.this.mongoDatabase
+        </td>
+      </tr><tr>
+        <td>
+          32
+        </td>
+        <td>
+          18
+        </td>
+        <td>
+          1301
+          -
+          1327
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.dao.UserDao.&lt;init&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          new com.knoldus.dao.UserDao(MongoApplication.this.mongoDatabase)
+        </td>
+      </tr><tr>
+        <td>
+          33
+        </td>
+        <td>
+          20
+        </td>
+        <td>
+          1369
+          -
+          1373
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.db.MongoApplication.conf
+        </td>
+        <td style="background: #F0ADAD">
+          MongoApplication.this.conf
+        </td>
+      </tr><tr>
+        <td>
+          33
+        </td>
+        <td>
+          22
+        </td>
+        <td>
+          1348
+          -
+          1374
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          com.knoldus.service.UserService.&lt;init&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          new com.knoldus.service.UserService(MongoApplication.this.dao, MongoApplication.this.conf)(MongoApplication.this.logger)
+        </td>
+      </tr><tr>
+        <td>
+          33
+        </td>
+        <td>
+          19
+        </td>
+        <td>
+          1364
+          -
+          1367
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.db.MongoApplication.dao
+        </td>
+        <td style="background: #F0ADAD">
+          MongoApplication.this.dao
+        </td>
+      </tr><tr>
+        <td>
+          33
+        </td>
+        <td>
+          21
+        </td>
+        <td>
+          1348
+          -
+          1348
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.db.MongoApplication.logger
+        </td>
+        <td style="background: #F0ADAD">
+          MongoApplication.this.logger
+        </td>
+      </tr><tr>
+        <td>
+          35
+        </td>
+        <td>
+          23
+        </td>
+        <td>
+          1397
+          -
+          1453
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.domain.User.apply
+        </td>
+        <td style="background: #F0ADAD">
+          com.knoldus.domain.User.apply(&quot;Ada&quot;, &quot;Lovelace&quot;, &quot;us&quot;, &quot;17/1970&quot;, 55522222, &quot;WD&quot;)
+        </td>
+      </tr><tr>
+        <td>
+          40
+        </td>
+        <td>
+          26
+        </td>
+        <td>
+          1581
+          -
+          1658
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.concurrent.Await.result
+        </td>
+        <td style="background: #F0ADAD">
+          scala.concurrent.Await.result[Either[com.knoldus.service.UserService.UserServiceError,com.knoldus.domain.User]](MongoApplication.this.userService.findUser(111311111), scala.concurrent.duration.Duration.apply(10L, SECONDS))
+        </td>
+      </tr><tr>
+        <td>
+          40
+        </td>
+        <td>
+          25
+        </td>
+        <td>
+          1627
+          -
+          1657
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.concurrent.duration.Duration.apply
+        </td>
+        <td style="background: #F0ADAD">
+          scala.concurrent.duration.Duration.apply(10L, SECONDS)
+        </td>
+      </tr><tr>
+        <td>
+          40
+        </td>
+        <td>
+          24
+        </td>
+        <td>
+          1594
+          -
+          1625
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.service.UserService.findUser
+        </td>
+        <td style="background: #F0ADAD">
+          MongoApplication.this.userService.findUser(111311111)
+        </td>
+      </tr><tr>
+        <td>
+          43
+        </td>
+        <td>
+          29
+        </td>
+        <td>
+          1795
+          -
+          1805
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          scala.concurrent.duration.DurationConversions.seconds
+        </td>
+        <td style="background: #F0ADAD">
+          scala.concurrent.duration.`package`.DurationInt(30).seconds
+        </td>
+      </tr><tr>
+        <td>
+          43
+        </td>
+        <td>
+          31
+        </td>
+        <td>
+          1720
+          -
+          1807
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.util.Try.apply
+        </td>
+        <td style="background: #F0ADAD">
+          scala.util.Try.apply[org.mongodb.scala.Document](scala.concurrent.Await.result[org.mongodb.scala.Document](scala.this.`package`.ScalaSingleObservable[org.mongodb.scala.Document](mongoDatabase.runCommand[org.mongodb.scala.Document](org.mongodb.scala.bson.collection.mutable.Document.apply(bson.this.BsonMagnets.tupleToCanBeBsonElement[Int](scala.Predef.ArrowAssoc[String](&quot;ping&quot;).-&gt;[Int](1))(bson.this.BsonTransformer.TransformInt)))(DefaultHelper.this.DefaultsTo.default[org.mongodb.scala.Document], (ClassTag.apply[org.mongodb.scala.Document](classOf[org.mongodb.scala.bson.collection.immutable.Document]): scala.reflect.ClassTag[org.mongodb.scala.Document]))).toFuture(), scala.concurrent.duration.`package`.DurationInt(30).seconds))
+        </td>
+      </tr><tr>
+        <td>
+          43
+        </td>
+        <td>
+          28
+        </td>
+        <td>
+          1795
+          -
+          1797
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          30
+        </td>
+      </tr><tr>
+        <td>
+          43
+        </td>
+        <td>
+          27
+        </td>
+        <td>
+          1737
+          -
+          1793
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          org.mongodb.scala.ObservableImplicits.ScalaSingleObservable.toFuture
+        </td>
+        <td style="background: #F0ADAD">
+          scala.this.`package`.ScalaSingleObservable[org.mongodb.scala.Document](mongoDatabase.runCommand[org.mongodb.scala.Document](org.mongodb.scala.bson.collection.mutable.Document.apply(bson.this.BsonMagnets.tupleToCanBeBsonElement[Int](scala.Predef.ArrowAssoc[String](&quot;ping&quot;).-&gt;[Int](1))(bson.this.BsonTransformer.TransformInt)))(DefaultHelper.this.DefaultsTo.default[org.mongodb.scala.Document], (ClassTag.apply[org.mongodb.scala.Document](classOf[org.mongodb.scala.bson.collection.immutable.Document]): scala.reflect.ClassTag[org.mongodb.scala.Document]))).toFuture()
+        </td>
+      </tr><tr>
+        <td>
+          43
+        </td>
+        <td>
+          30
+        </td>
+        <td>
+          1724
+          -
+          1806
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.concurrent.Await.result
+        </td>
+        <td style="background: #F0ADAD">
+          scala.concurrent.Await.result[org.mongodb.scala.Document](scala.this.`package`.ScalaSingleObservable[org.mongodb.scala.Document](mongoDatabase.runCommand[org.mongodb.scala.Document](org.mongodb.scala.bson.collection.mutable.Document.apply(bson.this.BsonMagnets.tupleToCanBeBsonElement[Int](scala.Predef.ArrowAssoc[String](&quot;ping&quot;).-&gt;[Int](1))(bson.this.BsonTransformer.TransformInt)))(DefaultHelper.this.DefaultsTo.default[org.mongodb.scala.Document], (ClassTag.apply[org.mongodb.scala.Document](classOf[org.mongodb.scala.bson.collection.immutable.Document]): scala.reflect.ClassTag[org.mongodb.scala.Document]))).toFuture(), scala.concurrent.duration.`package`.DurationInt(30).seconds)
+        </td>
+      </tr><tr>
+        <td>
+          45
+        </td>
+        <td>
+          32
+        </td>
+        <td>
+          1872
+          -
+          1921
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          &quot;Could not connect to Mongo on bootstrap. Error: &quot;
+        </td>
+      </tr><tr>
+        <td>
+          45
+        </td>
+        <td>
+          35
+        </td>
+        <td>
+          1870
+          -
+          1943
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.StringContext.s
+        </td>
+        <td style="background: #F0ADAD">
+          scala.StringContext.apply(&quot;Could not connect to Mongo on bootstrap. Error: &quot;, &quot;&quot;).s(com.knoldus.utils.ThrowableExtensions.ThrowableOps(exception).printInfo)
+        </td>
+      </tr><tr>
+        <td>
+          45
+        </td>
+        <td>
+          34
+        </td>
+        <td>
+          1922
+          -
+          1941
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.utils.ThrowableExtensions.ThrowableOps.printInfo
+        </td>
+        <td style="background: #F0ADAD">
+          com.knoldus.utils.ThrowableExtensions.ThrowableOps(exception).printInfo
+        </td>
+      </tr><tr>
+        <td>
+          45
+        </td>
+        <td>
+          36
+        </td>
+        <td>
+          1857
+          -
+          1944
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          org.apache.log4j.Category.error
+        </td>
+        <td style="background: #F0ADAD">
+          MongoApplication.this.logger.error(scala.StringContext.apply(&quot;Could not connect to Mongo on bootstrap. Error: &quot;, &quot;&quot;).s(com.knoldus.utils.ThrowableExtensions.ThrowableOps(exception).printInfo))
+        </td>
+      </tr><tr>
+        <td>
+          45
+        </td>
+        <td>
+          33
+        </td>
+        <td>
+          1942
+          -
+          1943
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          &quot;&quot;
+        </td>
+      </tr><tr>
+        <td>
+          46
+        </td>
+        <td>
+          37
+        </td>
+        <td>
+          1953
+          -
+          1968
+        </td>
+        <td>
+          Throw
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          throw exception
+        </td>
+      </tr>
+    </table>
+          </div>
+        </div>
+      </body>
+    </html>

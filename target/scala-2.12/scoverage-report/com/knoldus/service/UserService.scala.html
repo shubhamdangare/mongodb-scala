@@ -1,0 +1,1301 @@
+<html>
+      <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title id="title">
+          com/knoldus/service/UserService.scala.html
+        </title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.20.1/css/theme.default.min.css" type="text/css"/><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.20.1/js/jquery.tablesorter.min.js"></script><link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" type="text/css"/><script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script><script type="text/javascript">
+        $(document).ready(function() {$(".tablesorter").tablesorter();});
+      </script>
+        <style>
+          table.codegrid { font-family: monospace; font-size: 12px; width: auto!important; }table.statementlist { width: auto!important; font-size: 13px; } table.codegrid td { padding: 0!important; border: 0!important } table td.linenumber { width: 40px!important; } 
+        </style>
+      </head>
+      <body style="font-family: monospace;">
+        <ul class="nav nav-tabs">
+          <li>
+            <a href="#codegrid" data-toggle="tab">Codegrid</a>
+          </li>
+          <li>
+            <a href="#statementlist" data-toggle="tab">Statement List</a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="codegrid">
+            <pre style='font-size: 12pt; font-family: courier;'>1 <span style=''>package com.knoldus.service
+</span>2 <span style=''>
+</span>3 <span style=''>import java.util.concurrent.TimeUnit
+</span>4 <span style=''>
+</span>5 <span style=''>import cats.implicits._
+</span>6 <span style=''>import com.knoldus.dao.UserDao
+</span>7 <span style=''>import com.knoldus.domain.User
+</span>8 <span style=''>import com.knoldus.service.UserService.UserServiceError
+</span>9 <span style=''>import com.typesafe.config.Config
+</span>10 <span style=''>import org.apache.log4j.Logger
+</span>11 <span style=''>
+</span>12 <span style=''>import scala.concurrent.ExecutionContext.Implicits.global
+</span>13 <span style=''>import scala.concurrent.duration.Duration
+</span>14 <span style=''>import scala.concurrent.{Await, Future}
+</span>15 <span style=''>
+</span>16 <span style=''>class UserService(dao: UserDao, conf: Config)(implicit val logger: Logger) {
+</span>17 <span style=''>
+</span>18 <span style=''>
+</span>19 <span style=''>  def AddUser(user: User): Future[Either[UserServiceError, User]] = {
+</span>20 <span style=''>
+</span>21 <span style=''>    if (</span><span style='background: #AEF1AE'>getCount(user.mobileNumber) == 0</span><span style=''>) </span><span style='background: #AEF1AE'>{
+</span>22 <span style=''></span><span style='background: #AEF1AE'>      logger.info(&quot;user added successfully&quot;)
+</span>23 <span style=''></span><span style='background: #AEF1AE'>      for {user &lt;- dao.create(user)} yield user
+</span>24 <span style=''></span><span style='background: #AEF1AE'>      Future.successful(user.asRight)
+</span>25 <span style=''></span><span style='background: #AEF1AE'>    }</span><span style=''>
+</span>26 <span style=''>    else </span><span style='background: #AEF1AE'>{
+</span>27 <span style=''></span><span style='background: #AEF1AE'>      logger.info(&quot;user already exists&quot;)
+</span>28 <span style=''></span><span style='background: #AEF1AE'>      Future.successful(UserServiceError.UserAlreadyExist.asLeft)
+</span>29 <span style=''></span><span style='background: #AEF1AE'>    }</span><span style=''>
+</span>30 <span style=''>
+</span>31 <span style=''>  }
+</span>32 <span style=''>
+</span>33 <span style=''>  def deleteUser(userMobile: Int): Future[Either[UserServiceError, Int]] = {
+</span>34 <span style=''>
+</span>35 <span style=''>    if (</span><span style='background: #AEF1AE'>getCount(userMobile) == 1</span><span style=''>) </span><span style='background: #AEF1AE'>{
+</span>36 <span style=''></span><span style='background: #AEF1AE'>      val result = for {
+</span>37 <span style=''></span><span style='background: #AEF1AE'>        user &lt;- dao.findOne(userMobile, &quot;mobileNumber&quot;)
+</span>38 <span style=''></span><span style='background: #AEF1AE'>        data &lt;- dao.deleteOne(user.mobileNumber, &quot;mobileNumber&quot;)
+</span>39 <span style=''></span><span style='background: #AEF1AE'>      } yield data
+</span>40 <span style=''></span><span style='background: #AEF1AE'>      result.map(value =&gt; value.asRight)
+</span>41 <span style=''></span><span style='background: #AEF1AE'>    }</span><span style=''>
+</span>42 <span style=''>    else </span><span style='background: #AEF1AE'>{
+</span>43 <span style=''></span><span style='background: #AEF1AE'>      logger.info(&quot;user not found&quot;)
+</span>44 <span style=''></span><span style='background: #AEF1AE'>      Future.successful(UserServiceError.UserNotFound.asLeft)
+</span>45 <span style=''></span><span style='background: #AEF1AE'>    }</span><span style=''>
+</span>46 <span style=''>
+</span>47 <span style=''>  }
+</span>48 <span style=''>
+</span>49 <span style=''>  def updateUser(user: User, mobile: Int): Future[Either[UserServiceError, Int]] = {
+</span>50 <span style=''>
+</span>51 <span style=''>    if (</span><span style='background: #AEF1AE'>getCount(user.mobileNumber) == 1</span><span style=''>) </span><span style='background: #AEF1AE'>{
+</span>52 <span style=''></span><span style='background: #AEF1AE'>      val result = for {
+</span>53 <span style=''></span><span style='background: #AEF1AE'>        user &lt;- dao.findOne(user.mobileNumber, &quot;mobileNumber&quot;)
+</span>54 <span style=''></span><span style='background: #AEF1AE'>        data &lt;- dao.update(user.mobileNumber, mobile, &quot;mobileNumber&quot;)
+</span>55 <span style=''></span><span style='background: #AEF1AE'>      } yield data
+</span>56 <span style=''></span><span style='background: #AEF1AE'>      result.map(value =&gt; value.asRight)
+</span>57 <span style=''></span><span style='background: #AEF1AE'>    }</span><span style=''>
+</span>58 <span style=''>    else </span><span style='background: #AEF1AE'>{
+</span>59 <span style=''></span><span style='background: #AEF1AE'>      logger.info(&quot;user not found&quot;)
+</span>60 <span style=''></span><span style='background: #AEF1AE'>      Future.successful(UserServiceError.UserNotFound.asLeft)
+</span>61 <span style=''></span><span style='background: #AEF1AE'>    }</span><span style=''>
+</span>62 <span style=''>
+</span>63 <span style=''>  }
+</span>64 <span style=''>
+</span>65 <span style=''>  def findUser(number: Int): Future[Either[UserServiceError, User]] = {
+</span>66 <span style=''>
+</span>67 <span style=''>    if (</span><span style='background: #AEF1AE'>getCount(number) == 1</span><span style=''>) </span><span style='background: #AEF1AE'>{
+</span>68 <span style=''></span><span style='background: #AEF1AE'>      logger.info(&quot;user added successfully&quot;)
+</span>69 <span style=''></span><span style='background: #AEF1AE'>      dao.findOne(number, &quot;mobileNumber&quot;).map(_.asRight)
+</span>70 <span style=''></span><span style='background: #AEF1AE'>    }</span><span style=''>
+</span>71 <span style=''>    else </span><span style='background: #AEF1AE'>{
+</span>72 <span style=''></span><span style='background: #AEF1AE'>      logger.info(&quot;user already exists&quot;)
+</span>73 <span style=''></span><span style='background: #AEF1AE'>      Future.successful(UserServiceError.UserNotFound.asLeft)
+</span>74 <span style=''></span><span style='background: #AEF1AE'>    }</span><span style=''>
+</span>75 <span style=''>
+</span>76 <span style=''>  }
+</span>77 <span style=''>
+</span>78 <span style=''>  def getCount(mobileNumber: Int): Int = {
+</span>79 <span style=''>
+</span>80 <span style=''>    </span><span style='background: #AEF1AE'>Await.result(dao.count(mobileNumber, &quot;mobileNumber&quot;), Duration(5, TimeUnit.SECONDS))</span><span style=''>
+</span>81 <span style=''>  }
+</span>82 <span style=''>
+</span>83 <span style=''>}
+</span>84 <span style=''>
+</span>85 <span style=''>object UserService {
+</span>86 <span style=''>
+</span>87 <span style=''>  sealed trait UserServiceError
+</span>88 <span style=''>
+</span>89 <span style=''>  object UserServiceError {
+</span>90 <span style=''>
+</span>91 <span style=''>    case object UserNotFound extends UserServiceError
+</span>92 <span style=''>
+</span>93 <span style=''>    case object UserNotUpdatedDenied extends UserServiceError
+</span>94 <span style=''>
+</span>95 <span style=''>    case object UserNotDeleted extends UserServiceError
+</span>96 <span style=''>
+</span>97 <span style=''>    case object UserAlreadyExist extends UserServiceError
+</span>98 <span style=''>
+</span>99 <span style=''>  }
+</span>100 <span style=''>
+</span>101 <span style=''>}
+</span></pre>
+          </div>
+          <div class="tab-pane" id="statementlist">
+            <table cellspacing="0" cellpadding="0" class="table statementlist">
+      <tr>
+        <th>Line</th>
+        <th>Stmt Id</th>
+        <th>Pos</th>
+        <th>Tree</th>
+        <th>Symbol</th>
+        <th>Code</th>
+      </tr><tr>
+        <td>
+          21
+        </td>
+        <td>
+          98
+        </td>
+        <td>
+          608
+          -
+          746
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #AEF1AE">
+          {
+  UserService.this.logger.info(&quot;user added successfully&quot;);
+  UserService.this.dao.create(user).map[com.knoldus.domain.User](((user: com.knoldus.domain.User) =&gt; user))(scala.concurrent.ExecutionContext.Implicits.global);
+  scala.concurrent.Future.successful[Either[Nothing,com.knoldus.domain.User]](cats.implicits.catsSyntaxEitherId[com.knoldus.domain.User](user).asRight[Nothing])
+}
+        </td>
+      </tr><tr>
+        <td>
+          21
+        </td>
+        <td>
+          93
+        </td>
+        <td>
+          574
+          -
+          606
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.Int.==
+        </td>
+        <td style="background: #AEF1AE">
+          UserService.this.getCount(user.mobileNumber).==(0)
+        </td>
+      </tr><tr>
+        <td>
+          22
+        </td>
+        <td>
+          94
+        </td>
+        <td>
+          616
+          -
+          654
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          org.apache.log4j.Category.info
+        </td>
+        <td style="background: #AEF1AE">
+          UserService.this.logger.info(&quot;user added successfully&quot;)
+        </td>
+      </tr><tr>
+        <td>
+          23
+        </td>
+        <td>
+          95
+        </td>
+        <td>
+          661
+          -
+          702
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          scala.concurrent.Future.map
+        </td>
+        <td style="background: #AEF1AE">
+          UserService.this.dao.create(user).map[com.knoldus.domain.User](((user: com.knoldus.domain.User) =&gt; user))(scala.concurrent.ExecutionContext.Implicits.global)
+        </td>
+      </tr><tr>
+        <td>
+          24
+        </td>
+        <td>
+          97
+        </td>
+        <td>
+          709
+          -
+          740
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.concurrent.Future.successful
+        </td>
+        <td style="background: #AEF1AE">
+          scala.concurrent.Future.successful[Either[Nothing,com.knoldus.domain.User]](cats.implicits.catsSyntaxEitherId[com.knoldus.domain.User](user).asRight[Nothing])
+        </td>
+      </tr><tr>
+        <td>
+          24
+        </td>
+        <td>
+          96
+        </td>
+        <td>
+          727
+          -
+          739
+        </td>
+        <td>
+          TypeApply
+        </td>
+        <td>
+          cats.syntax.EitherIdOps.asRight
+        </td>
+        <td style="background: #AEF1AE">
+          cats.implicits.catsSyntaxEitherId[com.knoldus.domain.User](user).asRight[Nothing]
+        </td>
+      </tr><tr>
+        <td>
+          26
+        </td>
+        <td>
+          103
+        </td>
+        <td>
+          756
+          -
+          870
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #AEF1AE">
+          {
+  UserService.this.logger.info(&quot;user already exists&quot;);
+  scala.concurrent.Future.successful[Either[com.knoldus.service.UserService.UserServiceError.UserAlreadyExist.type,Nothing]](cats.implicits.catsSyntaxEitherId[com.knoldus.service.UserService.UserServiceError.UserAlreadyExist.type](com.knoldus.service.UserService.UserServiceError.UserAlreadyExist).asLeft[Nothing])
+}
+        </td>
+      </tr><tr>
+        <td>
+          27
+        </td>
+        <td>
+          99
+        </td>
+        <td>
+          764
+          -
+          798
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          org.apache.log4j.Category.info
+        </td>
+        <td style="background: #AEF1AE">
+          UserService.this.logger.info(&quot;user already exists&quot;)
+        </td>
+      </tr><tr>
+        <td>
+          28
+        </td>
+        <td>
+          101
+        </td>
+        <td>
+          823
+          -
+          863
+        </td>
+        <td>
+          TypeApply
+        </td>
+        <td>
+          cats.syntax.EitherIdOps.asLeft
+        </td>
+        <td style="background: #AEF1AE">
+          cats.implicits.catsSyntaxEitherId[com.knoldus.service.UserService.UserServiceError.UserAlreadyExist.type](com.knoldus.service.UserService.UserServiceError.UserAlreadyExist).asLeft[Nothing]
+        </td>
+      </tr><tr>
+        <td>
+          28
+        </td>
+        <td>
+          100
+        </td>
+        <td>
+          823
+          -
+          856
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.service.UserService.UserServiceError.UserAlreadyExist
+        </td>
+        <td style="background: #AEF1AE">
+          com.knoldus.service.UserService.UserServiceError.UserAlreadyExist
+        </td>
+      </tr><tr>
+        <td>
+          28
+        </td>
+        <td>
+          102
+        </td>
+        <td>
+          805
+          -
+          864
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.concurrent.Future.successful
+        </td>
+        <td style="background: #AEF1AE">
+          scala.concurrent.Future.successful[Either[com.knoldus.service.UserService.UserServiceError.UserAlreadyExist.type,Nothing]](cats.implicits.catsSyntaxEitherId[com.knoldus.service.UserService.UserServiceError.UserAlreadyExist.type](com.knoldus.service.UserService.UserServiceError.UserAlreadyExist).asLeft[Nothing])
+        </td>
+      </tr><tr>
+        <td>
+          35
+        </td>
+        <td>
+          104
+        </td>
+        <td>
+          963
+          -
+          988
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.Int.==
+        </td>
+        <td style="background: #AEF1AE">
+          UserService.this.getCount(userMobile).==(1)
+        </td>
+      </tr><tr>
+        <td>
+          35
+        </td>
+        <td>
+          112
+        </td>
+        <td>
+          990
+          -
+          1203
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #AEF1AE">
+          {
+  val result: scala.concurrent.Future[Int] = UserService.this.dao.findOne(userMobile, &quot;mobileNumber&quot;).flatMap[Int](((user: com.knoldus.domain.User) =&gt; UserService.this.dao.deleteOne(user.mobileNumber, &quot;mobileNumber&quot;).map[Int](((data: Int) =&gt; data))(scala.concurrent.ExecutionContext.Implicits.global)))(scala.concurrent.ExecutionContext.Implicits.global);
+  result.map[Either[Nothing,Int]](((value: Int) =&gt; cats.implicits.catsSyntaxEitherId[Int](value).asRight[Nothing]))(scala.concurrent.ExecutionContext.Implicits.global)
+}
+        </td>
+      </tr><tr>
+        <td>
+          37
+        </td>
+        <td>
+          109
+        </td>
+        <td>
+          1011
+          -
+          1156
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          scala.concurrent.Future.flatMap
+        </td>
+        <td style="background: #AEF1AE">
+          UserService.this.dao.findOne(userMobile, &quot;mobileNumber&quot;).flatMap[Int](((user: com.knoldus.domain.User) =&gt; UserService.this.dao.deleteOne(user.mobileNumber, &quot;mobileNumber&quot;).map[Int](((data: Int) =&gt; data))(scala.concurrent.ExecutionContext.Implicits.global)))(scala.concurrent.ExecutionContext.Implicits.global)
+        </td>
+      </tr><tr>
+        <td>
+          37
+        </td>
+        <td>
+          105
+        </td>
+        <td>
+          1057
+          -
+          1071
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #AEF1AE">
+          &quot;mobileNumber&quot;
+        </td>
+      </tr><tr>
+        <td>
+          38
+        </td>
+        <td>
+          107
+        </td>
+        <td>
+          1122
+          -
+          1136
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #AEF1AE">
+          &quot;mobileNumber&quot;
+        </td>
+      </tr><tr>
+        <td>
+          38
+        </td>
+        <td>
+          106
+        </td>
+        <td>
+          1103
+          -
+          1120
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.domain.User.mobileNumber
+        </td>
+        <td style="background: #AEF1AE">
+          user.mobileNumber
+        </td>
+      </tr><tr>
+        <td>
+          38
+        </td>
+        <td>
+          108
+        </td>
+        <td>
+          1081
+          -
+          1156
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          scala.concurrent.Future.map
+        </td>
+        <td style="background: #AEF1AE">
+          UserService.this.dao.deleteOne(user.mobileNumber, &quot;mobileNumber&quot;).map[Int](((data: Int) =&gt; data))(scala.concurrent.ExecutionContext.Implicits.global)
+        </td>
+      </tr><tr>
+        <td>
+          40
+        </td>
+        <td>
+          110
+        </td>
+        <td>
+          1183
+          -
+          1196
+        </td>
+        <td>
+          TypeApply
+        </td>
+        <td>
+          cats.syntax.EitherIdOps.asRight
+        </td>
+        <td style="background: #AEF1AE">
+          cats.implicits.catsSyntaxEitherId[Int](value).asRight[Nothing]
+        </td>
+      </tr><tr>
+        <td>
+          40
+        </td>
+        <td>
+          111
+        </td>
+        <td>
+          1163
+          -
+          1197
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          scala.concurrent.Future.map
+        </td>
+        <td style="background: #AEF1AE">
+          result.map[Either[Nothing,Int]](((value: Int) =&gt; cats.implicits.catsSyntaxEitherId[Int](value).asRight[Nothing]))(scala.concurrent.ExecutionContext.Implicits.global)
+        </td>
+      </tr><tr>
+        <td>
+          42
+        </td>
+        <td>
+          117
+        </td>
+        <td>
+          1213
+          -
+          1318
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #AEF1AE">
+          {
+  UserService.this.logger.info(&quot;user not found&quot;);
+  scala.concurrent.Future.successful[Either[com.knoldus.service.UserService.UserServiceError.UserNotFound.type,Nothing]](cats.implicits.catsSyntaxEitherId[com.knoldus.service.UserService.UserServiceError.UserNotFound.type](com.knoldus.service.UserService.UserServiceError.UserNotFound).asLeft[Nothing])
+}
+        </td>
+      </tr><tr>
+        <td>
+          43
+        </td>
+        <td>
+          113
+        </td>
+        <td>
+          1221
+          -
+          1250
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          org.apache.log4j.Category.info
+        </td>
+        <td style="background: #AEF1AE">
+          UserService.this.logger.info(&quot;user not found&quot;)
+        </td>
+      </tr><tr>
+        <td>
+          44
+        </td>
+        <td>
+          116
+        </td>
+        <td>
+          1257
+          -
+          1312
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.concurrent.Future.successful
+        </td>
+        <td style="background: #AEF1AE">
+          scala.concurrent.Future.successful[Either[com.knoldus.service.UserService.UserServiceError.UserNotFound.type,Nothing]](cats.implicits.catsSyntaxEitherId[com.knoldus.service.UserService.UserServiceError.UserNotFound.type](com.knoldus.service.UserService.UserServiceError.UserNotFound).asLeft[Nothing])
+        </td>
+      </tr><tr>
+        <td>
+          44
+        </td>
+        <td>
+          115
+        </td>
+        <td>
+          1275
+          -
+          1311
+        </td>
+        <td>
+          TypeApply
+        </td>
+        <td>
+          cats.syntax.EitherIdOps.asLeft
+        </td>
+        <td style="background: #AEF1AE">
+          cats.implicits.catsSyntaxEitherId[com.knoldus.service.UserService.UserServiceError.UserNotFound.type](com.knoldus.service.UserService.UserServiceError.UserNotFound).asLeft[Nothing]
+        </td>
+      </tr><tr>
+        <td>
+          44
+        </td>
+        <td>
+          114
+        </td>
+        <td>
+          1275
+          -
+          1304
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.service.UserService.UserServiceError.UserNotFound
+        </td>
+        <td style="background: #AEF1AE">
+          com.knoldus.service.UserService.UserServiceError.UserNotFound
+        </td>
+      </tr><tr>
+        <td>
+          51
+        </td>
+        <td>
+          127
+        </td>
+        <td>
+          1453
+          -
+          1678
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #AEF1AE">
+          {
+  val result: scala.concurrent.Future[Int] = UserService.this.dao.findOne(user.mobileNumber, &quot;mobileNumber&quot;).flatMap[Int](((user: com.knoldus.domain.User) =&gt; UserService.this.dao.update(user.mobileNumber, mobile, &quot;mobileNumber&quot;).map[Int](((data: Int) =&gt; data))(scala.concurrent.ExecutionContext.Implicits.global)))(scala.concurrent.ExecutionContext.Implicits.global);
+  result.map[Either[Nothing,Int]](((value: Int) =&gt; cats.implicits.catsSyntaxEitherId[Int](value).asRight[Nothing]))(scala.concurrent.ExecutionContext.Implicits.global)
+}
+        </td>
+      </tr><tr>
+        <td>
+          51
+        </td>
+        <td>
+          118
+        </td>
+        <td>
+          1419
+          -
+          1451
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.Int.==
+        </td>
+        <td style="background: #AEF1AE">
+          UserService.this.getCount(user.mobileNumber).==(1)
+        </td>
+      </tr><tr>
+        <td>
+          53
+        </td>
+        <td>
+          119
+        </td>
+        <td>
+          1508
+          -
+          1525
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.domain.User.mobileNumber
+        </td>
+        <td style="background: #AEF1AE">
+          user.mobileNumber
+        </td>
+      </tr><tr>
+        <td>
+          53
+        </td>
+        <td>
+          124
+        </td>
+        <td>
+          1474
+          -
+          1631
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          scala.concurrent.Future.flatMap
+        </td>
+        <td style="background: #AEF1AE">
+          UserService.this.dao.findOne(user.mobileNumber, &quot;mobileNumber&quot;).flatMap[Int](((user: com.knoldus.domain.User) =&gt; UserService.this.dao.update(user.mobileNumber, mobile, &quot;mobileNumber&quot;).map[Int](((data: Int) =&gt; data))(scala.concurrent.ExecutionContext.Implicits.global)))(scala.concurrent.ExecutionContext.Implicits.global)
+        </td>
+      </tr><tr>
+        <td>
+          53
+        </td>
+        <td>
+          120
+        </td>
+        <td>
+          1527
+          -
+          1541
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #AEF1AE">
+          &quot;mobileNumber&quot;
+        </td>
+      </tr><tr>
+        <td>
+          54
+        </td>
+        <td>
+          122
+        </td>
+        <td>
+          1597
+          -
+          1611
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #AEF1AE">
+          &quot;mobileNumber&quot;
+        </td>
+      </tr><tr>
+        <td>
+          54
+        </td>
+        <td>
+          121
+        </td>
+        <td>
+          1570
+          -
+          1587
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.domain.User.mobileNumber
+        </td>
+        <td style="background: #AEF1AE">
+          user.mobileNumber
+        </td>
+      </tr><tr>
+        <td>
+          54
+        </td>
+        <td>
+          123
+        </td>
+        <td>
+          1551
+          -
+          1631
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          scala.concurrent.Future.map
+        </td>
+        <td style="background: #AEF1AE">
+          UserService.this.dao.update(user.mobileNumber, mobile, &quot;mobileNumber&quot;).map[Int](((data: Int) =&gt; data))(scala.concurrent.ExecutionContext.Implicits.global)
+        </td>
+      </tr><tr>
+        <td>
+          56
+        </td>
+        <td>
+          125
+        </td>
+        <td>
+          1658
+          -
+          1671
+        </td>
+        <td>
+          TypeApply
+        </td>
+        <td>
+          cats.syntax.EitherIdOps.asRight
+        </td>
+        <td style="background: #AEF1AE">
+          cats.implicits.catsSyntaxEitherId[Int](value).asRight[Nothing]
+        </td>
+      </tr><tr>
+        <td>
+          56
+        </td>
+        <td>
+          126
+        </td>
+        <td>
+          1638
+          -
+          1672
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          scala.concurrent.Future.map
+        </td>
+        <td style="background: #AEF1AE">
+          result.map[Either[Nothing,Int]](((value: Int) =&gt; cats.implicits.catsSyntaxEitherId[Int](value).asRight[Nothing]))(scala.concurrent.ExecutionContext.Implicits.global)
+        </td>
+      </tr><tr>
+        <td>
+          58
+        </td>
+        <td>
+          132
+        </td>
+        <td>
+          1688
+          -
+          1793
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #AEF1AE">
+          {
+  UserService.this.logger.info(&quot;user not found&quot;);
+  scala.concurrent.Future.successful[Either[com.knoldus.service.UserService.UserServiceError.UserNotFound.type,Nothing]](cats.implicits.catsSyntaxEitherId[com.knoldus.service.UserService.UserServiceError.UserNotFound.type](com.knoldus.service.UserService.UserServiceError.UserNotFound).asLeft[Nothing])
+}
+        </td>
+      </tr><tr>
+        <td>
+          59
+        </td>
+        <td>
+          128
+        </td>
+        <td>
+          1696
+          -
+          1725
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          org.apache.log4j.Category.info
+        </td>
+        <td style="background: #AEF1AE">
+          UserService.this.logger.info(&quot;user not found&quot;)
+        </td>
+      </tr><tr>
+        <td>
+          60
+        </td>
+        <td>
+          131
+        </td>
+        <td>
+          1732
+          -
+          1787
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.concurrent.Future.successful
+        </td>
+        <td style="background: #AEF1AE">
+          scala.concurrent.Future.successful[Either[com.knoldus.service.UserService.UserServiceError.UserNotFound.type,Nothing]](cats.implicits.catsSyntaxEitherId[com.knoldus.service.UserService.UserServiceError.UserNotFound.type](com.knoldus.service.UserService.UserServiceError.UserNotFound).asLeft[Nothing])
+        </td>
+      </tr><tr>
+        <td>
+          60
+        </td>
+        <td>
+          130
+        </td>
+        <td>
+          1750
+          -
+          1786
+        </td>
+        <td>
+          TypeApply
+        </td>
+        <td>
+          cats.syntax.EitherIdOps.asLeft
+        </td>
+        <td style="background: #AEF1AE">
+          cats.implicits.catsSyntaxEitherId[com.knoldus.service.UserService.UserServiceError.UserNotFound.type](com.knoldus.service.UserService.UserServiceError.UserNotFound).asLeft[Nothing]
+        </td>
+      </tr><tr>
+        <td>
+          60
+        </td>
+        <td>
+          129
+        </td>
+        <td>
+          1750
+          -
+          1779
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.service.UserService.UserServiceError.UserNotFound
+        </td>
+        <td style="background: #AEF1AE">
+          com.knoldus.service.UserService.UserServiceError.UserNotFound
+        </td>
+      </tr><tr>
+        <td>
+          67
+        </td>
+        <td>
+          133
+        </td>
+        <td>
+          1881
+          -
+          1902
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.Int.==
+        </td>
+        <td style="background: #AEF1AE">
+          UserService.this.getCount(number).==(1)
+        </td>
+      </tr><tr>
+        <td>
+          67
+        </td>
+        <td>
+          138
+        </td>
+        <td>
+          1904
+          -
+          2013
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #AEF1AE">
+          {
+  UserService.this.logger.info(&quot;user added successfully&quot;);
+  UserService.this.dao.findOne(number, &quot;mobileNumber&quot;).map[Either[Nothing,com.knoldus.domain.User]](((x$1: com.knoldus.domain.User) =&gt; cats.implicits.catsSyntaxEitherId[com.knoldus.domain.User](x$1).asRight[Nothing]))(scala.concurrent.ExecutionContext.Implicits.global)
+}
+        </td>
+      </tr><tr>
+        <td>
+          68
+        </td>
+        <td>
+          134
+        </td>
+        <td>
+          1912
+          -
+          1950
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          org.apache.log4j.Category.info
+        </td>
+        <td style="background: #AEF1AE">
+          UserService.this.logger.info(&quot;user added successfully&quot;)
+        </td>
+      </tr><tr>
+        <td>
+          69
+        </td>
+        <td>
+          137
+        </td>
+        <td>
+          1957
+          -
+          2007
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          scala.concurrent.Future.map
+        </td>
+        <td style="background: #AEF1AE">
+          UserService.this.dao.findOne(number, &quot;mobileNumber&quot;).map[Either[Nothing,com.knoldus.domain.User]](((x$1: com.knoldus.domain.User) =&gt; cats.implicits.catsSyntaxEitherId[com.knoldus.domain.User](x$1).asRight[Nothing]))(scala.concurrent.ExecutionContext.Implicits.global)
+        </td>
+      </tr><tr>
+        <td>
+          69
+        </td>
+        <td>
+          136
+        </td>
+        <td>
+          1997
+          -
+          2006
+        </td>
+        <td>
+          TypeApply
+        </td>
+        <td>
+          cats.syntax.EitherIdOps.asRight
+        </td>
+        <td style="background: #AEF1AE">
+          cats.implicits.catsSyntaxEitherId[com.knoldus.domain.User](x$1).asRight[Nothing]
+        </td>
+      </tr><tr>
+        <td>
+          69
+        </td>
+        <td>
+          135
+        </td>
+        <td>
+          1977
+          -
+          1991
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #AEF1AE">
+          &quot;mobileNumber&quot;
+        </td>
+      </tr><tr>
+        <td>
+          71
+        </td>
+        <td>
+          143
+        </td>
+        <td>
+          2023
+          -
+          2133
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #AEF1AE">
+          {
+  UserService.this.logger.info(&quot;user already exists&quot;);
+  scala.concurrent.Future.successful[Either[com.knoldus.service.UserService.UserServiceError.UserNotFound.type,Nothing]](cats.implicits.catsSyntaxEitherId[com.knoldus.service.UserService.UserServiceError.UserNotFound.type](com.knoldus.service.UserService.UserServiceError.UserNotFound).asLeft[Nothing])
+}
+        </td>
+      </tr><tr>
+        <td>
+          72
+        </td>
+        <td>
+          139
+        </td>
+        <td>
+          2031
+          -
+          2065
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          org.apache.log4j.Category.info
+        </td>
+        <td style="background: #AEF1AE">
+          UserService.this.logger.info(&quot;user already exists&quot;)
+        </td>
+      </tr><tr>
+        <td>
+          73
+        </td>
+        <td>
+          140
+        </td>
+        <td>
+          2090
+          -
+          2119
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.service.UserService.UserServiceError.UserNotFound
+        </td>
+        <td style="background: #AEF1AE">
+          com.knoldus.service.UserService.UserServiceError.UserNotFound
+        </td>
+      </tr><tr>
+        <td>
+          73
+        </td>
+        <td>
+          142
+        </td>
+        <td>
+          2072
+          -
+          2127
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.concurrent.Future.successful
+        </td>
+        <td style="background: #AEF1AE">
+          scala.concurrent.Future.successful[Either[com.knoldus.service.UserService.UserServiceError.UserNotFound.type,Nothing]](cats.implicits.catsSyntaxEitherId[com.knoldus.service.UserService.UserServiceError.UserNotFound.type](com.knoldus.service.UserService.UserServiceError.UserNotFound).asLeft[Nothing])
+        </td>
+      </tr><tr>
+        <td>
+          73
+        </td>
+        <td>
+          141
+        </td>
+        <td>
+          2090
+          -
+          2126
+        </td>
+        <td>
+          TypeApply
+        </td>
+        <td>
+          cats.syntax.EitherIdOps.asLeft
+        </td>
+        <td style="background: #AEF1AE">
+          cats.implicits.catsSyntaxEitherId[com.knoldus.service.UserService.UserServiceError.UserNotFound.type](com.knoldus.service.UserService.UserServiceError.UserNotFound).asLeft[Nothing]
+        </td>
+      </tr><tr>
+        <td>
+          80
+        </td>
+        <td>
+          146
+        </td>
+        <td>
+          2188
+          -
+          2272
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.concurrent.Await.result
+        </td>
+        <td style="background: #AEF1AE">
+          scala.concurrent.Await.result[Int](UserService.this.dao.count(mobileNumber, &quot;mobileNumber&quot;), scala.concurrent.duration.Duration.apply(5L, SECONDS))
+        </td>
+      </tr><tr>
+        <td>
+          80
+        </td>
+        <td>
+          145
+        </td>
+        <td>
+          2242
+          -
+          2271
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.concurrent.duration.Duration.apply
+        </td>
+        <td style="background: #AEF1AE">
+          scala.concurrent.duration.Duration.apply(5L, SECONDS)
+        </td>
+      </tr><tr>
+        <td>
+          80
+        </td>
+        <td>
+          144
+        </td>
+        <td>
+          2201
+          -
+          2240
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.db.MongoEntity.count
+        </td>
+        <td style="background: #AEF1AE">
+          UserService.this.dao.count(mobileNumber, &quot;mobileNumber&quot;)
+        </td>
+      </tr>
+    </table>
+          </div>
+        </div>
+      </body>
+    </html>

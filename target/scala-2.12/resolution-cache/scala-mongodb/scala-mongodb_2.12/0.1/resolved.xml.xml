@@ -4,7 +4,7 @@
 		module="scala-mongodb_2.12"
 		revision="0.1"
 		status="integration"
-		publication="20190614152844"
+		publication="20190614153206"
 	>
 		<description>
 		scala-mongodb
@@ -22,6 +22,7 @@
 		<conf name="plugin" visibility="private" description=""/>
 		<conf name="pom" visibility="public" description=""/>
 		<conf name="scala-tool" visibility="private" description=""/>
+		<conf name="scoveragePlugin" visibility="private" description=""/>
 	</configurations>
 	<publications>
 		<artifact name="scala-mongodb_2.12" type="pom" ext="pom" conf="pom"/>
@@ -32,6 +33,8 @@
 	<dependencies>
 		<dependency org="org.scala-lang" name="scala-compiler" rev="2.12.8" conf="scala-tool->default,optional(default)"/>
 		<dependency org="org.scala-lang" name="scala-library" rev="2.12.8" conf="scala-tool->default,optional(default);compile->default(compile)"/>
+		<dependency org="org.scoverage" name="scalac-scoverage-runtime_2.12" rev="1.3.1" conf="compile->default(compile)"/>
+		<dependency org="org.scoverage" name="scalac-scoverage-plugin_2.12" rev="1.3.1" conf="scoveragePlugin->default(compile)"/>
 		<dependency org="ch.qos.logback" name="logback-classic" rev="1.2.3" conf="compile->default(compile)"/>
 		<dependency org="org.mongodb.scala" name="mongo-scala-driver_2.12" rev="2.5.0" conf="compile->default(compile)"/>
 		<dependency org="com.typesafe.scala-logging" name="scala-logging_2.12" rev="3.9.0" conf="compile->default(compile)"/>

@@ -1,0 +1,657 @@
+<scoverage 
+statement-count="154" statements-invoked="56" statement-rate="36.36" branch-rate="80.00" version="1.0" timestamp="1560506547498">
+    <packages>
+        <package name="com.knoldus.dao" statement-count="2" statements-invoked="0" statement-rate="0.00">
+            <classes>
+                <class 
+                name="com.knoldus.dao.UserDao" filename="com/knoldus/dao/UserDao.scala" statement-count="2" statements-invoked="0" statement-rate="0.00" branch-rate="0.00">
+                    <methods>
+                        <method 
+                        name="com.knoldus.dao/UserDao/&lt;none&gt;" statement-count="2" statements-invoked="0" statement-rate="0.00" branch-rate="0.00">
+                            <statements>
+                                <statement 
+                                package="com.knoldus.dao" class="UserDao" class-type="Class" full-class-name="com.knoldus.dao.UserDao" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/dao/UserDao.scala" method="&lt;none&gt;" start="248" end="255" line="9" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.dao" class="UserDao" class-type="Class" full-class-name="com.knoldus.dao.UserDao" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/dao/UserDao.scala" method="&lt;none&gt;" start="297" end="303" line="11" branch="false" invocation-count="0" ignored="false">
+</statement>
+                            </statements>
+</method>
+                    </methods>
+</class>
+            </classes>
+        </package>
+        <package name="com.knoldus.db" statement-count="88" statements-invoked="0" statement-rate="0.00">
+            <classes>
+                <class 
+                name="com.knoldus.db.Helpers.DocumentObservable" filename="com/knoldus/db/Helpers.scala" statement-count="1" statements-invoked="0" statement-rate="0.00" branch-rate="0.00">
+                    <methods>
+                        <method 
+                        name="com.knoldus.db/DocumentObservable/&lt;none&gt;" statement-count="1" statements-invoked="0" statement-rate="0.00" branch-rate="0.00">
+                            <statements>
+                                <statement 
+                                package="com.knoldus.db" class="DocumentObservable" class-type="Class" full-class-name="com.knoldus.db.Helpers.DocumentObservable" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/Helpers.scala" method="&lt;none&gt;" start="357" end="367" line="13" branch="false" invocation-count="0" ignored="false">
+</statement>
+                            </statements>
+</method>
+                    </methods>
+</class>
+                <class 
+                name="com.knoldus.db.Helpers.GenericObservable" filename="com/knoldus/db/Helpers.scala" statement-count="1" statements-invoked="0" statement-rate="0.00" branch-rate="0.00">
+                    <methods>
+                        <method 
+                        name="com.knoldus.db/GenericObservable/&lt;none&gt;" statement-count="1" statements-invoked="0" statement-rate="0.00" branch-rate="0.00">
+                            <statements>
+                                <statement 
+                                package="com.knoldus.db" class="GenericObservable" class-type="Class" full-class-name="com.knoldus.db.Helpers.GenericObservable" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/Helpers.scala" method="&lt;none&gt;" start="527" end="539" line="17" branch="false" invocation-count="0" ignored="false">
+</statement>
+                            </statements>
+</method>
+                    </methods>
+</class>
+                <class 
+                name="com.knoldus.db.MongoApplication" filename="com/knoldus/MongoApplication.scala" statement-count="37" statements-invoked="0" statement-rate="0.00" branch-rate="0.00">
+                    <methods>
+                        <method 
+                        name="com.knoldus.db/MongoApplication/&lt;none&gt;" statement-count="26" statements-invoked="0" statement-rate="0.00" branch-rate="0.00">
+                            <statements>
+                                <statement 
+                                package="com.knoldus.db" class="MongoApplication" class-type="Object" full-class-name="com.knoldus.db.MongoApplication" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala" method="&lt;none&gt;" start="1397" end="1453" line="35" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoApplication" class-type="Object" full-class-name="com.knoldus.db.MongoApplication" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala" method="&lt;none&gt;" start="1313" end="1326" line="32" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoApplication" class-type="Object" full-class-name="com.knoldus.db.MongoApplication" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala" method="&lt;none&gt;" start="945" end="1013" line="26" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoApplication" class-type="Object" full-class-name="com.knoldus.db.MongoApplication" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala" method="&lt;none&gt;" start="1581" end="1658" line="40" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoApplication" class-type="Object" full-class-name="com.knoldus.db.MongoApplication" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala" method="&lt;none&gt;" start="1051" end="1140" line="27" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoApplication" class-type="Object" full-class-name="com.knoldus.db.MongoApplication" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala" method="&lt;none&gt;" start="1369" end="1373" line="33" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoApplication" class-type="Object" full-class-name="com.knoldus.db.MongoApplication" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala" method="&lt;none&gt;" start="847" end="860" line="24" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoApplication" class-type="Object" full-class-name="com.knoldus.db.MongoApplication" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala" method="&lt;none&gt;" start="882" end="922" line="25" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoApplication" class-type="Object" full-class-name="com.knoldus.db.MongoApplication" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala" method="&lt;none&gt;" start="1183" end="1251" line="28" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoApplication" class-type="Object" full-class-name="com.knoldus.db.MongoApplication" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala" method="&lt;none&gt;" start="1210" end="1210" line="28" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoApplication" class-type="Object" full-class-name="com.knoldus.db.MongoApplication" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala" method="&lt;none&gt;" start="894" end="921" line="25" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoApplication" class-type="Object" full-class-name="com.knoldus.db.MongoApplication" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala" method="&lt;none&gt;" start="1348" end="1374" line="33" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoApplication" class-type="Object" full-class-name="com.knoldus.db.MongoApplication" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala" method="&lt;none&gt;" start="1255" end="1287" line="30" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoApplication" class-type="Object" full-class-name="com.knoldus.db.MongoApplication" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala" method="&lt;none&gt;" start="990" end="1012" line="26" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoApplication" class-type="Object" full-class-name="com.knoldus.db.MongoApplication" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala" method="&lt;none&gt;" start="1627" end="1657" line="40" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoApplication" class-type="Object" full-class-name="com.knoldus.db.MongoApplication" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala" method="&lt;none&gt;" start="1126" end="1139" line="27" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoApplication" class-type="Object" full-class-name="com.knoldus.db.MongoApplication" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala" method="&lt;none&gt;" start="785" end="805" line="23" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoApplication" class-type="Object" full-class-name="com.knoldus.db.MongoApplication" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala" method="&lt;none&gt;" start="1364" end="1367" line="33" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoApplication" class-type="Object" full-class-name="com.knoldus.db.MongoApplication" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala" method="&lt;none&gt;" start="1301" end="1327" line="32" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoApplication" class-type="Object" full-class-name="com.knoldus.db.MongoApplication" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala" method="&lt;none&gt;" start="1075" end="1106" line="27" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoApplication" class-type="Object" full-class-name="com.knoldus.db.MongoApplication" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala" method="&lt;none&gt;" start="1348" end="1348" line="33" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoApplication" class-type="Object" full-class-name="com.knoldus.db.MongoApplication" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala" method="&lt;none&gt;" start="830" end="861" line="24" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoApplication" class-type="Object" full-class-name="com.knoldus.db.MongoApplication" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala" method="&lt;none&gt;" start="1211" end="1250" line="28" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoApplication" class-type="Object" full-class-name="com.knoldus.db.MongoApplication" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala" method="&lt;none&gt;" start="1273" end="1286" line="30" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoApplication" class-type="Object" full-class-name="com.knoldus.db.MongoApplication" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala" method="&lt;none&gt;" start="1594" end="1625" line="40" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoApplication" class-type="Object" full-class-name="com.knoldus.db.MongoApplication" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala" method="&lt;none&gt;" start="960" end="988" line="26" branch="false" invocation-count="0" ignored="false">
+</statement>
+                            </statements>
+</method>
+                        <method 
+                        name="com.knoldus.db/MongoApplication/tryConnectToMongo" statement-count="11" statements-invoked="0" statement-rate="0.00" branch-rate="0.00">
+                            <statements>
+                                <statement 
+                                package="com.knoldus.db" class="MongoApplication" class-type="Object" full-class-name="com.knoldus.db.MongoApplication" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala" method="tryConnectToMongo" start="1872" end="1921" line="45" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoApplication" class-type="Object" full-class-name="com.knoldus.db.MongoApplication" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala" method="tryConnectToMongo" start="1870" end="1943" line="45" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoApplication" class-type="Object" full-class-name="com.knoldus.db.MongoApplication" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala" method="tryConnectToMongo" start="1795" end="1805" line="43" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoApplication" class-type="Object" full-class-name="com.knoldus.db.MongoApplication" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala" method="tryConnectToMongo" start="1720" end="1807" line="43" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoApplication" class-type="Object" full-class-name="com.knoldus.db.MongoApplication" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala" method="tryConnectToMongo" start="1922" end="1941" line="45" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoApplication" class-type="Object" full-class-name="com.knoldus.db.MongoApplication" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala" method="tryConnectToMongo" start="1953" end="1968" line="46" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoApplication" class-type="Object" full-class-name="com.knoldus.db.MongoApplication" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala" method="tryConnectToMongo" start="1795" end="1797" line="43" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoApplication" class-type="Object" full-class-name="com.knoldus.db.MongoApplication" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala" method="tryConnectToMongo" start="1737" end="1793" line="43" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoApplication" class-type="Object" full-class-name="com.knoldus.db.MongoApplication" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala" method="tryConnectToMongo" start="1857" end="1944" line="45" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoApplication" class-type="Object" full-class-name="com.knoldus.db.MongoApplication" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala" method="tryConnectToMongo" start="1724" end="1806" line="43" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoApplication" class-type="Object" full-class-name="com.knoldus.db.MongoApplication" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala" method="tryConnectToMongo" start="1942" end="1943" line="45" branch="false" invocation-count="0" ignored="false">
+</statement>
+                            </statements>
+</method>
+                    </methods>
+</class>
+                <class 
+                name="com.knoldus.db.MongoEntity" filename="com/knoldus/db/MongoEntity.scala" statement-count="28" statements-invoked="0" statement-rate="0.00" branch-rate="0.00">
+                    <methods>
+                        <method 
+                        name="com.knoldus.db/MongoEntity/createMany" statement-count="2" statements-invoked="0" statement-rate="0.00" branch-rate="0.00">
+                            <statements>
+                                <statement 
+                                package="com.knoldus.db" class="MongoEntity" class-type="Class" full-class-name="com.knoldus.db.MongoEntity" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/MongoEntity.scala" method="createMany" start="483" end="530" line="19" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoEntity" class-type="Class" full-class-name="com.knoldus.db.MongoEntity" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/MongoEntity.scala" method="createMany" start="483" end="507" line="19" branch="false" invocation-count="0" ignored="false">
+</statement>
+                            </statements>
+</method>
+                        <method 
+                        name="com.knoldus.db/MongoEntity/count" statement-count="4" statements-invoked="0" statement-rate="0.00" branch-rate="0.00">
+                            <statements>
+                                <statement 
+                                package="com.knoldus.db" class="MongoEntity" class-type="Class" full-class-name="com.knoldus.db.MongoEntity" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/MongoEntity.scala" method="count" start="1370" end="1389" line="54" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoEntity" class-type="Class" full-class-name="com.knoldus.db.MongoEntity" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/MongoEntity.scala" method="count" start="1353" end="1414" line="54" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoEntity" class-type="Class" full-class-name="com.knoldus.db.MongoEntity" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/MongoEntity.scala" method="count" start="1406" end="1413" line="54" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoEntity" class-type="Class" full-class-name="com.knoldus.db.MongoEntity" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/MongoEntity.scala" method="count" start="1353" end="1390" line="54" branch="false" invocation-count="0" ignored="false">
+</statement>
+                            </statements>
+</method>
+                        <method 
+                        name="com.knoldus.db/MongoEntity/findOne" statement-count="1" statements-invoked="0" statement-rate="0.00" branch-rate="0.00">
+                            <statements>
+                                <statement 
+                                package="com.knoldus.db" class="MongoEntity" class-type="Class" full-class-name="com.knoldus.db.MongoEntity" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/MongoEntity.scala" method="findOne" start="993" end="1048" line="39" branch="false" invocation-count="0" ignored="false">
+</statement>
+                            </statements>
+</method>
+                        <method 
+                        name="com.knoldus.db/MongoEntity/create" statement-count="2" statements-invoked="0" statement-rate="0.00" branch-rate="0.00">
+                            <statements>
+                                <statement 
+                                package="com.knoldus.db" class="MongoEntity" class-type="Class" full-class-name="com.knoldus.db.MongoEntity" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/MongoEntity.scala" method="create" start="575" end="598" line="24" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoEntity" class-type="Class" full-class-name="com.knoldus.db.MongoEntity" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/MongoEntity.scala" method="create" start="575" end="621" line="24" branch="false" invocation-count="0" ignored="false">
+</statement>
+                            </statements>
+</method>
+                        <method 
+                        name="com.knoldus.db/MongoEntity/findAll" statement-count="3" statements-invoked="0" statement-rate="0.00" branch-rate="0.00">
+                            <statements>
+                                <statement 
+                                package="com.knoldus.db" class="MongoEntity" class-type="Class" full-class-name="com.knoldus.db.MongoEntity" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/MongoEntity.scala" method="findAll" start="1111" end="1111" line="44" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoEntity" class-type="Class" full-class-name="com.knoldus.db.MongoEntity" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/MongoEntity.scala" method="findAll" start="1111" end="1111" line="44" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoEntity" class-type="Class" full-class-name="com.knoldus.db.MongoEntity" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/MongoEntity.scala" method="findAll" start="1096" end="1113" line="44" branch="false" invocation-count="0" ignored="false">
+</statement>
+                            </statements>
+</method>
+                        <method 
+                        name="com.knoldus.db/MongoEntity/update" statement-count="4" statements-invoked="0" statement-rate="0.00" branch-rate="0.00">
+                            <statements>
+                                <statement 
+                                package="com.knoldus.db" class="MongoEntity" class-type="Class" full-class-name="com.knoldus.db.MongoEntity" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/MongoEntity.scala" method="update" start="1244" end="1261" line="48" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoEntity" class-type="Class" full-class-name="com.knoldus.db.MongoEntity" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/MongoEntity.scala" method="update" start="1195" end="1285" line="48" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoEntity" class-type="Class" full-class-name="com.knoldus.db.MongoEntity" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/MongoEntity.scala" method="update" start="1216" end="1242" line="48" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoEntity" class-type="Class" full-class-name="com.knoldus.db.MongoEntity" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/MongoEntity.scala" method="update" start="1195" end="1262" line="48" branch="false" invocation-count="0" ignored="false">
+</statement>
+                            </statements>
+</method>
+                        <method 
+                        name="com.knoldus.db/MongoEntity/deleteOne" statement-count="3" statements-invoked="0" statement-rate="0.00" branch-rate="0.00">
+                            <statements>
+                                <statement 
+                                package="com.knoldus.db" class="MongoEntity" class-type="Class" full-class-name="com.knoldus.db.MongoEntity" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/MongoEntity.scala" method="deleteOne" start="692" end="733" line="29" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoEntity" class-type="Class" full-class-name="com.knoldus.db.MongoEntity" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/MongoEntity.scala" method="deleteOne" start="713" end="732" line="29" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoEntity" class-type="Class" full-class-name="com.knoldus.db.MongoEntity" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/MongoEntity.scala" method="deleteOne" start="692" end="756" line="29" branch="false" invocation-count="0" ignored="false">
+</statement>
+                            </statements>
+</method>
+                        <method 
+                        name="com.knoldus.db/MongoEntity/deleteMany" statement-count="5" statements-invoked="0" statement-rate="0.00" branch-rate="0.00">
+                            <statements>
+                                <statement 
+                                package="com.knoldus.db" class="MongoEntity" class-type="Class" full-class-name="com.knoldus.db.MongoEntity" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/MongoEntity.scala" method="deleteMany" start="857" end="902" line="34" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoEntity" class-type="Class" full-class-name="com.knoldus.db.MongoEntity" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/MongoEntity.scala" method="deleteMany" start="843" end="926" line="34" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoEntity" class-type="Class" full-class-name="com.knoldus.db.MongoEntity" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/MongoEntity.scala" method="deleteMany" start="848" end="848" line="34" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoEntity" class-type="Class" full-class-name="com.knoldus.db.MongoEntity" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/MongoEntity.scala" method="deleteMany" start="879" end="901" line="34" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoEntity" class-type="Class" full-class-name="com.knoldus.db.MongoEntity" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/MongoEntity.scala" method="deleteMany" start="857" end="925" line="34" branch="false" invocation-count="0" ignored="false">
+</statement>
+                            </statements>
+</method>
+                        <method 
+                        name="com.knoldus.db/MongoEntity/collection" statement-count="4" statements-invoked="0" statement-rate="0.00" branch-rate="0.00">
+                            <statements>
+                                <statement 
+                                package="com.knoldus.db" class="MongoEntity" class-type="Class" full-class-name="com.knoldus.db.MongoEntity" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/MongoEntity.scala" method="collection" start="1495" end="1495" line="59" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoEntity" class-type="Class" full-class-name="com.knoldus.db.MongoEntity" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/MongoEntity.scala" method="collection" start="1495" end="1495" line="59" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoEntity" class-type="Class" full-class-name="com.knoldus.db.MongoEntity" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/MongoEntity.scala" method="collection" start="1496" end="1510" line="59" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="MongoEntity" class-type="Class" full-class-name="com.knoldus.db.MongoEntity" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/MongoEntity.scala" method="collection" start="1473" end="1511" line="59" branch="false" invocation-count="0" ignored="false">
+</statement>
+                            </statements>
+</method>
+                    </methods>
+</class>
+                <class 
+                name="com.knoldus.db.Helpers.ImplicitObservable" filename="com/knoldus/db/Helpers.scala" statement-count="21" statements-invoked="0" statement-rate="0.00" branch-rate="0.00">
+                    <methods>
+                        <method 
+                        name="com.knoldus.db/ImplicitObservable/printHeadResult" statement-count="7" statements-invoked="0" statement-rate="0.00" branch-rate="0.00">
+                            <statements>
+                                <statement 
+                                package="com.knoldus.db" class="ImplicitObservable" class-type="Trait" full-class-name="com.knoldus.db.Helpers.ImplicitObservable" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/Helpers.scala" method="printHeadResult" start="1077" end="1089" line="33" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="ImplicitObservable" class-type="Trait" full-class-name="com.knoldus.db.Helpers.ImplicitObservable" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/Helpers.scala" method="printHeadResult" start="1045" end="1093" line="33" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="ImplicitObservable" class-type="Trait" full-class-name="com.knoldus.db.Helpers.ImplicitObservable" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/Helpers.scala" method="printHeadResult" start="1055" end="1056" line="33" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="ImplicitObservable" class-type="Trait" full-class-name="com.knoldus.db.Helpers.ImplicitObservable" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/Helpers.scala" method="printHeadResult" start="1091" end="1092" line="33" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="ImplicitObservable" class-type="Trait" full-class-name="com.knoldus.db.Helpers.ImplicitObservable" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/Helpers.scala" method="printHeadResult" start="1053" end="1092" line="33" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="ImplicitObservable" class-type="Trait" full-class-name="com.knoldus.db.Helpers.ImplicitObservable" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/Helpers.scala" method="printHeadResult" start="1067" end="1090" line="33" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="ImplicitObservable" class-type="Trait" full-class-name="com.knoldus.db.Helpers.ImplicitObservable" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/Helpers.scala" method="printHeadResult" start="1065" end="1066" line="33" branch="false" invocation-count="0" ignored="false">
+</statement>
+                            </statements>
+</method>
+                        <method 
+                        name="com.knoldus.db/ImplicitObservable/headResult" statement-count="3" statements-invoked="0" statement-rate="0.00" branch-rate="0.00">
+                            <statements>
+                                <statement 
+                                package="com.knoldus.db" class="ImplicitObservable" class-type="Trait" full-class-name="com.knoldus.db.Helpers.ImplicitObservable" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/Helpers.scala" method="headResult" start="765" end="828" line="26" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="ImplicitObservable" class-type="Trait" full-class-name="com.knoldus.db.Helpers.ImplicitObservable" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/Helpers.scala" method="headResult" start="797" end="827" line="26" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="ImplicitObservable" class-type="Trait" full-class-name="com.knoldus.db.Helpers.ImplicitObservable" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/Helpers.scala" method="headResult" start="778" end="795" line="26" branch="false" invocation-count="0" ignored="false">
+</statement>
+                            </statements>
+</method>
+                        <method 
+                        name="com.knoldus.db/ImplicitObservable/printResults" statement-count="8" statements-invoked="0" statement-rate="0.00" branch-rate="0.00">
+                            <statements>
+                                <statement 
+                                package="com.knoldus.db" class="ImplicitObservable" class-type="Trait" full-class-name="com.knoldus.db.Helpers.ImplicitObservable" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/Helpers.scala" method="printResults" start="913" end="927" line="29" branch="true" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="ImplicitObservable" class-type="Trait" full-class-name="com.knoldus.db.Helpers.ImplicitObservable" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/Helpers.scala" method="printResults" start="967" end="981" line="30" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="ImplicitObservable" class-type="Trait" full-class-name="com.knoldus.db.Helpers.ImplicitObservable" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/Helpers.scala" method="printResults" start="934" end="983" line="30" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="ImplicitObservable" class-type="Trait" full-class-name="com.knoldus.db.Helpers.ImplicitObservable" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/Helpers.scala" method="printResults" start="913" end="927" line="29" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="ImplicitObservable" class-type="Trait" full-class-name="com.knoldus.db.Helpers.ImplicitObservable" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/Helpers.scala" method="printResults" start="889" end="889" line="29" branch="true" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="ImplicitObservable" class-type="Trait" full-class-name="com.knoldus.db.Helpers.ImplicitObservable" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/Helpers.scala" method="printResults" start="959" end="982" line="30" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="ImplicitObservable" class-type="Trait" full-class-name="com.knoldus.db.Helpers.ImplicitObservable" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/Helpers.scala" method="printResults" start="893" end="911" line="29" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="ImplicitObservable" class-type="Trait" full-class-name="com.knoldus.db.Helpers.ImplicitObservable" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/Helpers.scala" method="printResults" start="889" end="889" line="29" branch="false" invocation-count="0" ignored="false">
+</statement>
+                            </statements>
+</method>
+                        <method 
+                        name="com.knoldus.db/ImplicitObservable/results" statement-count="3" statements-invoked="0" statement-rate="0.00" branch-rate="0.00">
+                            <statements>
+                                <statement 
+                                package="com.knoldus.db" class="ImplicitObservable" class-type="Trait" full-class-name="com.knoldus.db.Helpers.ImplicitObservable" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/Helpers.scala" method="results" start="673" end="740" line="24" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="ImplicitObservable" class-type="Trait" full-class-name="com.knoldus.db.Helpers.ImplicitObservable" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/Helpers.scala" method="results" start="709" end="739" line="24" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.db" class="ImplicitObservable" class-type="Trait" full-class-name="com.knoldus.db.Helpers.ImplicitObservable" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/Helpers.scala" method="results" start="686" end="707" line="24" branch="false" invocation-count="0" ignored="false">
+</statement>
+                            </statements>
+</method>
+                    </methods>
+</class>
+            </classes>
+        </package>
+        <package name="com.knoldus.domain" statement-count="2" statements-invoked="2" statement-rate="100.00">
+            <classes>
+                <class 
+                name="com.knoldus.domain.User" filename="com/knoldus/domain/User.scala" statement-count="2" statements-invoked="2" statement-rate="100.00" branch-rate="100.00">
+                    <methods>
+                        <method 
+                        name="com.knoldus.domain/User/apply" statement-count="2" statements-invoked="2" statement-rate="100.00" branch-rate="100.00">
+                            <statements>
+                                <statement 
+                                package="com.knoldus.domain" class="User" class-type="Object" full-class-name="com.knoldus.domain.User" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/domain/User.scala" method="apply" start="281" end="359" line="13" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.domain" class="User" class-type="Object" full-class-name="com.knoldus.domain.User" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/domain/User.scala" method="apply" start="286" end="300" line="13" branch="false" invocation-count="1" ignored="false">
+</statement>
+                            </statements>
+</method>
+                    </methods>
+</class>
+            </classes>
+        </package>
+        <package name="com.knoldus.service" statement-count="54" statements-invoked="54" statement-rate="100.00">
+            <classes>
+                <class 
+                name="com.knoldus.service.UserService" filename="com/knoldus/service/UserService.scala" statement-count="54" statements-invoked="54" statement-rate="100.00" branch-rate="100.00">
+                    <methods>
+                        <method 
+                        name="com.knoldus.service/UserService/AddUser" statement-count="11" statements-invoked="11" statement-rate="100.00" branch-rate="100.00">
+                            <statements>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="AddUser" start="823" end="863" line="28" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="AddUser" start="661" end="702" line="23" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="AddUser" start="608" end="746" line="21" branch="true" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="AddUser" start="823" end="856" line="28" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="AddUser" start="616" end="654" line="22" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="AddUser" start="756" end="870" line="26" branch="true" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="AddUser" start="709" end="740" line="24" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="AddUser" start="727" end="739" line="24" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="AddUser" start="764" end="798" line="27" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="AddUser" start="574" end="606" line="21" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="AddUser" start="805" end="864" line="28" branch="false" invocation-count="1" ignored="false">
+</statement>
+                            </statements>
+</method>
+                        <method 
+                        name="com.knoldus.service/UserService/updateUser" statement-count="15" statements-invoked="15" statement-rate="100.00" branch-rate="100.00">
+                            <statements>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="updateUser" start="1508" end="1525" line="53" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="updateUser" start="1696" end="1725" line="59" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="updateUser" start="1732" end="1787" line="60" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="updateUser" start="1597" end="1611" line="54" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="updateUser" start="1658" end="1671" line="56" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="updateUser" start="1474" end="1631" line="53" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="updateUser" start="1453" end="1678" line="51" branch="true" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="updateUser" start="1419" end="1451" line="51" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="updateUser" start="1750" end="1786" line="60" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="updateUser" start="1570" end="1587" line="54" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="updateUser" start="1750" end="1779" line="60" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="updateUser" start="1527" end="1541" line="53" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="updateUser" start="1688" end="1793" line="58" branch="true" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="updateUser" start="1551" end="1631" line="54" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="updateUser" start="1638" end="1672" line="56" branch="false" invocation-count="1" ignored="false">
+</statement>
+                            </statements>
+</method>
+                        <method 
+                        name="com.knoldus.service/UserService/deleteUser" statement-count="14" statements-invoked="14" statement-rate="100.00" branch-rate="100.00">
+                            <statements>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="deleteUser" start="1183" end="1196" line="40" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="deleteUser" start="963" end="988" line="35" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="deleteUser" start="1221" end="1250" line="43" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="deleteUser" start="1257" end="1312" line="44" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="deleteUser" start="1122" end="1136" line="38" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="deleteUser" start="1103" end="1120" line="38" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="deleteUser" start="1275" end="1311" line="44" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="deleteUser" start="1011" end="1156" line="37" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="deleteUser" start="990" end="1203" line="35" branch="true" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="deleteUser" start="1057" end="1071" line="37" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="deleteUser" start="1275" end="1304" line="44" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="deleteUser" start="1081" end="1156" line="38" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="deleteUser" start="1213" end="1318" line="42" branch="true" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="deleteUser" start="1163" end="1197" line="40" branch="false" invocation-count="1" ignored="false">
+</statement>
+                            </statements>
+</method>
+                        <method 
+                        name="com.knoldus.service/UserService/getCount" statement-count="3" statements-invoked="3" statement-rate="100.00" branch-rate="100.00">
+                            <statements>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="getCount" start="2188" end="2272" line="80" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="getCount" start="2242" end="2271" line="80" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="getCount" start="2201" end="2240" line="80" branch="false" invocation-count="1" ignored="false">
+</statement>
+                            </statements>
+</method>
+                        <method 
+                        name="com.knoldus.service/UserService/findUser" statement-count="11" statements-invoked="11" statement-rate="100.00" branch-rate="100.00">
+                            <statements>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="findUser" start="1957" end="2007" line="69" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="findUser" start="2090" end="2119" line="73" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="findUser" start="1912" end="1950" line="68" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="findUser" start="2072" end="2127" line="73" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="findUser" start="1881" end="1902" line="67" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="findUser" start="1997" end="2006" line="69" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="findUser" start="2031" end="2065" line="72" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="findUser" start="1904" end="2013" line="67" branch="true" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="findUser" start="2090" end="2126" line="73" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="findUser" start="1977" end="1991" line="69" branch="false" invocation-count="1" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.service" class="UserService" class-type="Class" full-class-name="com.knoldus.service.UserService" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala" method="findUser" start="2023" end="2133" line="71" branch="true" invocation-count="1" ignored="false">
+</statement>
+                            </statements>
+</method>
+                    </methods>
+</class>
+            </classes>
+        </package>
+        <package name="com.knoldus.utils" statement-count="8" statements-invoked="0" statement-rate="0.00">
+            <classes>
+                <class 
+                name="com.knoldus.utils.ThrowableExtensions.ThrowableOps" filename="com/knoldus/utils/ThrowableExtensions.scala" statement-count="8" statements-invoked="0" statement-rate="0.00" branch-rate="0.00">
+                    <methods>
+                        <method 
+                        name="com.knoldus.utils/ThrowableOps/printInfo" statement-count="8" statements-invoked="0" statement-rate="0.00" branch-rate="0.00">
+                            <statements>
+                                <statement 
+                                package="com.knoldus.utils" class="ThrowableOps" class-type="Class" full-class-name="com.knoldus.utils.ThrowableExtensions.ThrowableOps" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/utils/ThrowableExtensions.scala" method="printInfo" start="217" end="223" line="9" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.utils" class="ThrowableOps" class-type="Class" full-class-name="com.knoldus.utils.ThrowableExtensions.ThrowableOps" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/utils/ThrowableExtensions.scala" method="printInfo" start="152" end="187" line="8" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.utils" class="ThrowableOps" class-type="Class" full-class-name="com.knoldus.utils.ThrowableExtensions.ThrowableOps" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/utils/ThrowableExtensions.scala" method="printInfo" start="146" end="266" line="8" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.utils" class="ThrowableOps" class-type="Class" full-class-name="com.knoldus.utils.ThrowableExtensions.ThrowableOps" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/utils/ThrowableExtensions.scala" method="printInfo" start="188" end="195" line="8" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.utils" class="ThrowableOps" class-type="Class" full-class-name="com.knoldus.utils.ThrowableExtensions.ThrowableOps" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/utils/ThrowableExtensions.scala" method="printInfo" start="150" end="151" line="8" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.utils" class="ThrowableOps" class-type="Class" full-class-name="com.knoldus.utils.ThrowableExtensions.ThrowableOps" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/utils/ThrowableExtensions.scala" method="printInfo" start="263" end="266" line="10" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.utils" class="ThrowableOps" class-type="Class" full-class-name="com.knoldus.utils.ThrowableExtensions.ThrowableOps" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/utils/ThrowableExtensions.scala" method="printInfo" start="224" end="262" line="10" branch="false" invocation-count="0" ignored="false">
+</statement>
+                                <statement 
+                                package="com.knoldus.utils" class="ThrowableOps" class-type="Class" full-class-name="com.knoldus.utils.ThrowableExtensions.ThrowableOps" source="/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/utils/ThrowableExtensions.scala" method="printInfo" start="196" end="216" line="9" branch="false" invocation-count="0" ignored="false">
+</statement>
+                            </statements>
+</method>
+                    </methods>
+</class>
+            </classes>
+        </package>
+    </packages>
+</scoverage>

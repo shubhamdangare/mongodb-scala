@@ -1,23 +1,21 @@
 package com.knoldus.service
 
 
+import cats._
+import cats.implicits._
 import com.knoldus.dao.UserDao
 import com.knoldus.domain.User
 import com.knoldus.service.UserService.UserServiceError._
 import com.typesafe.config.ConfigFactory
 import org.apache.log4j.Logger
 import org.mockito.Mockito.when
-import scala.concurrent.ExecutionContext.Implicits.global
 import org.mongodb.scala.MongoDatabase
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.mockito.MockitoSugar
 import org.scalatest.prop.TableDrivenPropertyChecks
 import org.scalatest.{Matchers, WordSpec}
-import cats._
-import implicits._
 
 import scala.concurrent.Future
-import scala.util.Success
 
 class UserServiceSpec extends WordSpec with ScalaFutures with Matchers with MockitoSugar with TableDrivenPropertyChecks {
 
@@ -39,7 +37,7 @@ class UserServiceSpec extends WordSpec with ScalaFutures with Matchers with Mock
         dao.create(person)
       ).thenReturn(future(person))
 
-      whenReady(userService.AddUser(person))(_ shouldBe person.asRight)
+      whenReady(userService.addUser(person))(_ shouldBe person.asRight)
     }
 
 
@@ -47,7 +45,7 @@ class UserServiceSpec extends WordSpec with ScalaFutures with Matchers with Mock
       when(
         dao.count(person.mobileNumber, "mobileNumber")
       ).thenReturn(future(1))
-      whenReady(userService.AddUser(person))(_ shouldBe UserAlreadyExist.asLeft)
+      whenReady(userService.addUser(person))(_ shouldBe UserAlreadyExist.asLeft)
     }
   }
 

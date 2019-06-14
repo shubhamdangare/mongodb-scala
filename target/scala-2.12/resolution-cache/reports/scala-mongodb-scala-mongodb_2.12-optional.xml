@@ -6,8 +6,8 @@
 		module="scala-mongodb_2.12"
 		revision="0.1"
 		conf="optional"
-		confs="compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, pom, scala-tool"
-		date="20190614152844"/>
+		confs="compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, pom, scala-tool, scoveragePlugin"
+		date="20190614153206"/>
 	<dependencies>
 	</dependencies>
 </ivy-report>

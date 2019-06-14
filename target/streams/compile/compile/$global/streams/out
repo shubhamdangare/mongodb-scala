@@ -1,2 +1,7 @@
+[0m[[0m[0minfo[0m] [0m[0m[info] Cleaning datadir [/home/shubham/Desktop/work/scala-mongodb/target/scala-2.12/scoverage-data][0m
+[0m[[0m[0minfo[0m] [0m[0m[info] Beginning coverage instrumentation[0m
+[0m[[0m[0minfo[0m] [0m[0m[info] Instrumentation completed [154 statements][0m
+[0m[[0m[0minfo[0m] [0m[0m[info] Wrote instrumentation file [/home/shubham/Desktop/work/scala-mongodb/target/scala-2.12/scoverage-data/scoverage.coverage.xml][0m
+[0m[[0m[0minfo[0m] [0m[0m[info] Will write measurement data to [/home/shubham/Desktop/work/scala-mongodb/target/scala-2.12/scoverage-data][0m
 [0m[[0m[33mwarn[0m] [0m[0mthere was one deprecation warning (since 2.4); re-run with -deprecation for details[0m
 [0m[[0m[33mwarn[0m] [0m[0mone warning found[0m

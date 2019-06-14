@@ -1,0 +1,560 @@
+<html>
+      <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title id="title">
+          com/knoldus/db/Helpers.scala.html
+        </title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.20.1/css/theme.default.min.css" type="text/css"/><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.20.1/js/jquery.tablesorter.min.js"></script><link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" type="text/css"/><script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script><script type="text/javascript">
+        $(document).ready(function() {$(".tablesorter").tablesorter();});
+      </script>
+        <style>
+          table.codegrid { font-family: monospace; font-size: 12px; width: auto!important; }table.statementlist { width: auto!important; font-size: 13px; } table.codegrid td { padding: 0!important; border: 0!important } table td.linenumber { width: 40px!important; } 
+        </style>
+      </head>
+      <body style="font-family: monospace;">
+        <ul class="nav nav-tabs">
+          <li>
+            <a href="#codegrid" data-toggle="tab">Codegrid</a>
+          </li>
+          <li>
+            <a href="#statementlist" data-toggle="tab">Statement List</a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="codegrid">
+            <pre style='font-size: 12pt; font-family: courier;'>1 <span style=''>package com.knoldus.db
+</span>2 <span style=''>
+</span>3 <span style=''>import java.util.concurrent.TimeUnit
+</span>4 <span style=''>
+</span>5 <span style=''>import org.mongodb.scala._
+</span>6 <span style=''>
+</span>7 <span style=''>import scala.concurrent.Await
+</span>8 <span style=''>import scala.concurrent.duration.Duration
+</span>9 <span style=''>
+</span>10 <span style=''>object Helpers {
+</span>11 <span style=''>
+</span>12 <span style=''>  implicit class DocumentObservable[C](val observable: Observable[Document]) extends ImplicitObservable[Document] {
+</span>13 <span style=''>    override val converter: (Document) =&gt; String = (doc) =&gt; </span><span style='background: #F0ADAD'>doc.toJson</span><span style=''>
+</span>14 <span style=''>  }
+</span>15 <span style=''>
+</span>16 <span style=''>  implicit class GenericObservable[C](val observable: Observable[C]) extends ImplicitObservable[C] {
+</span>17 <span style=''>    override val converter: (C) =&gt; String = (doc) =&gt; </span><span style='background: #F0ADAD'>doc.toString</span><span style=''>
+</span>18 <span style=''>  }
+</span>19 <span style=''>
+</span>20 <span style=''>  trait ImplicitObservable[C] {
+</span>21 <span style=''>    val observable: Observable[C]
+</span>22 <span style=''>    val converter: (C) =&gt; String
+</span>23 <span style=''>
+</span>24 <span style=''>    def results(): Seq[C] = </span><span style='background: #F0ADAD'>Await.result(observable.toFuture(), Duration(10, TimeUnit.SECONDS))</span><span style=''>
+</span>25 <span style=''>
+</span>26 <span style=''>    def headResult() = </span><span style='background: #F0ADAD'>Await.result(observable.head(), Duration(10, TimeUnit.SECONDS))</span><span style=''>
+</span>27 <span style=''>
+</span>28 <span style=''>    def printResults(initial: String = &quot;&quot;): Unit = {
+</span>29 <span style=''>      if (</span><span style='background: #F0ADAD'>initial.length &gt; 0</span><span style=''>) </span><span style='background: #F0ADAD'>print(initial)</span><span style=''>
+</span>30 <span style=''>      </span><span style='background: #F0ADAD'>results().foreach(res =&gt; println(converter(res)))</span><span style=''>
+</span>31 <span style=''>    }
+</span>32 <span style=''>
+</span>33 <span style=''>    def printHeadResult(initial: String = &quot;&quot;): Unit = </span><span style='background: #F0ADAD'>println(s&quot;${initial}${converter(headResult())}&quot;)</span><span style=''>
+</span>34 <span style=''>  }
+</span>35 <span style=''>
+</span>36 <span style=''>}
+</span></pre>
+          </div>
+          <div class="tab-pane" id="statementlist">
+            <table cellspacing="0" cellpadding="0" class="table statementlist">
+      <tr>
+        <th>Line</th>
+        <th>Stmt Id</th>
+        <th>Pos</th>
+        <th>Tree</th>
+        <th>Symbol</th>
+        <th>Code</th>
+      </tr><tr>
+        <td>
+          13
+        </td>
+        <td>
+          40
+        </td>
+        <td>
+          357
+          -
+          367
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          org.mongodb.scala.bson.collection.BaseDocument.toJson
+        </td>
+        <td style="background: #F0ADAD">
+          doc.toJson()
+        </td>
+      </tr><tr>
+        <td>
+          17
+        </td>
+        <td>
+          41
+        </td>
+        <td>
+          527
+          -
+          539
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.Any.toString
+        </td>
+        <td style="background: #F0ADAD">
+          doc.toString()
+        </td>
+      </tr><tr>
+        <td>
+          24
+        </td>
+        <td>
+          44
+        </td>
+        <td>
+          673
+          -
+          740
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.concurrent.Await.result
+        </td>
+        <td style="background: #F0ADAD">
+          scala.concurrent.Await.result[Seq[C]](org.mongodb.scala.`package`.ScalaObservable[C](ImplicitObservable.this.observable).toFuture(), scala.concurrent.duration.Duration.apply(10L, SECONDS))
+        </td>
+      </tr><tr>
+        <td>
+          24
+        </td>
+        <td>
+          43
+        </td>
+        <td>
+          709
+          -
+          739
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.concurrent.duration.Duration.apply
+        </td>
+        <td style="background: #F0ADAD">
+          scala.concurrent.duration.Duration.apply(10L, SECONDS)
+        </td>
+      </tr><tr>
+        <td>
+          24
+        </td>
+        <td>
+          42
+        </td>
+        <td>
+          686
+          -
+          707
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          org.mongodb.scala.ObservableImplicits.ScalaObservable.toFuture
+        </td>
+        <td style="background: #F0ADAD">
+          org.mongodb.scala.`package`.ScalaObservable[C](ImplicitObservable.this.observable).toFuture()
+        </td>
+      </tr><tr>
+        <td>
+          26
+        </td>
+        <td>
+          47
+        </td>
+        <td>
+          765
+          -
+          828
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.concurrent.Await.result
+        </td>
+        <td style="background: #F0ADAD">
+          scala.concurrent.Await.result[C](org.mongodb.scala.`package`.ScalaObservable[C](ImplicitObservable.this.observable).head(), scala.concurrent.duration.Duration.apply(10L, SECONDS))
+        </td>
+      </tr><tr>
+        <td>
+          26
+        </td>
+        <td>
+          46
+        </td>
+        <td>
+          797
+          -
+          827
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.concurrent.duration.Duration.apply
+        </td>
+        <td style="background: #F0ADAD">
+          scala.concurrent.duration.Duration.apply(10L, SECONDS)
+        </td>
+      </tr><tr>
+        <td>
+          26
+        </td>
+        <td>
+          45
+        </td>
+        <td>
+          778
+          -
+          795
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          org.mongodb.scala.ObservableImplicits.ScalaObservable.head
+        </td>
+        <td style="background: #F0ADAD">
+          org.mongodb.scala.`package`.ScalaObservable[C](ImplicitObservable.this.observable).head()
+        </td>
+      </tr><tr>
+        <td>
+          29
+        </td>
+        <td>
+          50
+        </td>
+        <td>
+          913
+          -
+          927
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          scala.Predef.print
+        </td>
+        <td style="background: #F0ADAD">
+          scala.Predef.print(initial)
+        </td>
+      </tr><tr>
+        <td>
+          29
+        </td>
+        <td>
+          49
+        </td>
+        <td>
+          913
+          -
+          927
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.Predef.print
+        </td>
+        <td style="background: #F0ADAD">
+          scala.Predef.print(initial)
+        </td>
+      </tr><tr>
+        <td>
+          29
+        </td>
+        <td>
+          52
+        </td>
+        <td>
+          889
+          -
+          889
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          ()
+        </td>
+      </tr><tr>
+        <td>
+          29
+        </td>
+        <td>
+          48
+        </td>
+        <td>
+          893
+          -
+          911
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.Int.&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          initial.length().&gt;(0)
+        </td>
+      </tr><tr>
+        <td>
+          29
+        </td>
+        <td>
+          51
+        </td>
+        <td>
+          889
+          -
+          889
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          ()
+        </td>
+      </tr><tr>
+        <td>
+          30
+        </td>
+        <td>
+          53
+        </td>
+        <td>
+          967
+          -
+          981
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.Function1.apply
+        </td>
+        <td style="background: #F0ADAD">
+          ImplicitObservable.this.converter.apply(res)
+        </td>
+      </tr><tr>
+        <td>
+          30
+        </td>
+        <td>
+          55
+        </td>
+        <td>
+          934
+          -
+          983
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.collection.IterableLike.foreach
+        </td>
+        <td style="background: #F0ADAD">
+          ImplicitObservable.this.results().foreach[Unit](((res: C) =&gt; scala.Predef.println(ImplicitObservable.this.converter.apply(res))))
+        </td>
+      </tr><tr>
+        <td>
+          30
+        </td>
+        <td>
+          54
+        </td>
+        <td>
+          959
+          -
+          982
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.Predef.println
+        </td>
+        <td style="background: #F0ADAD">
+          scala.Predef.println(ImplicitObservable.this.converter.apply(res))
+        </td>
+      </tr><tr>
+        <td>
+          33
+        </td>
+        <td>
+          59
+        </td>
+        <td>
+          1077
+          -
+          1089
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.db.Helpers.ImplicitObservable.headResult
+        </td>
+        <td style="background: #F0ADAD">
+          ImplicitObservable.this.headResult()
+        </td>
+      </tr><tr>
+        <td>
+          33
+        </td>
+        <td>
+          62
+        </td>
+        <td>
+          1045
+          -
+          1093
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.Predef.println
+        </td>
+        <td style="background: #F0ADAD">
+          scala.Predef.println(scala.StringContext.apply(&quot;&quot;, &quot;&quot;, &quot;&quot;).s(initial, ImplicitObservable.this.converter.apply(ImplicitObservable.this.headResult())))
+        </td>
+      </tr><tr>
+        <td>
+          33
+        </td>
+        <td>
+          56
+        </td>
+        <td>
+          1055
+          -
+          1056
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          &quot;&quot;
+        </td>
+      </tr><tr>
+        <td>
+          33
+        </td>
+        <td>
+          58
+        </td>
+        <td>
+          1091
+          -
+          1092
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          &quot;&quot;
+        </td>
+      </tr><tr>
+        <td>
+          33
+        </td>
+        <td>
+          61
+        </td>
+        <td>
+          1053
+          -
+          1092
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.StringContext.s
+        </td>
+        <td style="background: #F0ADAD">
+          scala.StringContext.apply(&quot;&quot;, &quot;&quot;, &quot;&quot;).s(initial, ImplicitObservable.this.converter.apply(ImplicitObservable.this.headResult()))
+        </td>
+      </tr><tr>
+        <td>
+          33
+        </td>
+        <td>
+          60
+        </td>
+        <td>
+          1067
+          -
+          1090
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.Function1.apply
+        </td>
+        <td style="background: #F0ADAD">
+          ImplicitObservable.this.converter.apply(ImplicitObservable.this.headResult())
+        </td>
+      </tr><tr>
+        <td>
+          33
+        </td>
+        <td>
+          57
+        </td>
+        <td>
+          1065
+          -
+          1066
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          &quot;&quot;
+        </td>
+      </tr>
+    </table>
+          </div>
+        </div>
+      </body>
+    </html>

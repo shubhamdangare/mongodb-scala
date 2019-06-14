@@ -1,0 +1,690 @@
+<html>
+      <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title id="title">
+          com/knoldus/db/MongoEntity.scala.html
+        </title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.20.1/css/theme.default.min.css" type="text/css"/><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.20.1/js/jquery.tablesorter.min.js"></script><link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" type="text/css"/><script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script><script type="text/javascript">
+        $(document).ready(function() {$(".tablesorter").tablesorter();});
+      </script>
+        <style>
+          table.codegrid { font-family: monospace; font-size: 12px; width: auto!important; }table.statementlist { width: auto!important; font-size: 13px; } table.codegrid td { padding: 0!important; border: 0!important } table td.linenumber { width: 40px!important; } 
+        </style>
+      </head>
+      <body style="font-family: monospace;">
+        <ul class="nav nav-tabs">
+          <li>
+            <a href="#codegrid" data-toggle="tab">Codegrid</a>
+          </li>
+          <li>
+            <a href="#statementlist" data-toggle="tab">Statement List</a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="codegrid">
+            <pre style='font-size: 12pt; font-family: courier;'>1 <span style=''>package com.knoldus.db
+</span>2 <span style=''>
+</span>3 <span style=''>import org.mongodb.scala.model.Filters._
+</span>4 <span style=''>import org.mongodb.scala.model.Updates._
+</span>5 <span style=''>import org.mongodb.scala.{FindObservable, MongoCollection, MongoDatabase}
+</span>6 <span style=''>
+</span>7 <span style=''>import scala.concurrent.ExecutionContext.Implicits.global
+</span>8 <span style=''>import scala.concurrent.Future
+</span>9 <span style=''>import scala.reflect.ClassTag
+</span>10 <span style=''>
+</span>11 <span style=''>abstract class MongoEntity[T](implicit c: ClassTag[T]) {
+</span>12 <span style=''>
+</span>13 <span style=''>  protected val database: MongoDatabase
+</span>14 <span style=''>
+</span>15 <span style=''>  val collectionName: String
+</span>16 <span style=''>
+</span>17 <span style=''>  def createMany(t: Seq[T]): Future[Seq[T]] = {
+</span>18 <span style=''>
+</span>19 <span style=''>    </span><span style='background: #F0ADAD'>collection.insertMany(t).toFuture().map(_ =&gt; t)</span><span style=''>
+</span>20 <span style=''>  }
+</span>21 <span style=''>
+</span>22 <span style=''>  def create(t: T): Future[T] = {
+</span>23 <span style=''>
+</span>24 <span style=''>    </span><span style='background: #F0ADAD'>collection.insertOne(t).toFuture().map(_ =&gt; t)</span><span style=''>
+</span>25 <span style=''>  }
+</span>26 <span style=''>
+</span>27 <span style=''>  def deleteOne(t: Int, fieldName: String): Future[Int] = {
+</span>28 <span style=''>
+</span>29 <span style=''>    </span><span style='background: #F0ADAD'>collection.deleteOne(equal(fieldName, t)).toFuture().map(_ =&gt; t)</span><span style=''>
+</span>30 <span style=''>  }
+</span>31 <span style=''>
+</span>32 <span style=''>  def deleteMany(t: Seq[Int], fieldName: String): Seq[Future[Seq[Int]]] = {
+</span>33 <span style=''>
+</span>34 <span style=''>    </span><span style='background: #F0ADAD'>t.map(data =&gt; collection.deleteMany(equal(fieldName, data)).toFuture().map(_ =&gt; t))</span><span style=''>
+</span>35 <span style=''>  }
+</span>36 <span style=''>
+</span>37 <span style=''>  def findOne(t: Int, fieldName: String): Future[T] = {
+</span>38 <span style=''>
+</span>39 <span style=''>    </span><span style='background: #F0ADAD'>collection.find(equal(fieldName, t)).first().toFuture()</span><span style=''>
+</span>40 <span style=''>  }
+</span>41 <span style=''>
+</span>42 <span style=''>  def findAll: FindObservable[T] = {
+</span>43 <span style=''>
+</span>44 <span style=''>    </span><span style='background: #F0ADAD'>collection.find()</span><span style=''>
+</span>45 <span style=''>  }
+</span>46 <span style=''>
+</span>47 <span style=''>  def update(existing: Int, t: Int, fieldName: String): Future[Int] = {
+</span>48 <span style=''>    </span><span style='background: #F0ADAD'>collection.updateOne(equal(fieldName, existing), set(fieldName, t)).toFuture().map(_ =&gt; t)</span><span style=''>
+</span>49 <span style=''>
+</span>50 <span style=''>  }
+</span>51 <span style=''>
+</span>52 <span style=''>  def count(t: Int, fieldName: String): Future[Int] = {
+</span>53 <span style=''>
+</span>54 <span style=''>    </span><span style='background: #F0ADAD'>collection.count(equal(fieldName, t)).toFuture().map(_.toInt)</span><span style=''>
+</span>55 <span style=''>
+</span>56 <span style=''>  }
+</span>57 <span style=''>
+</span>58 <span style=''>  implicit def collection: MongoCollection[T] =
+</span>59 <span style=''>    </span><span style='background: #F0ADAD'>database.getCollection(collectionName)</span><span style=''>
+</span>60 <span style=''>
+</span>61 <span style=''>}
+</span></pre>
+          </div>
+          <div class="tab-pane" id="statementlist">
+            <table cellspacing="0" cellpadding="0" class="table statementlist">
+      <tr>
+        <th>Line</th>
+        <th>Stmt Id</th>
+        <th>Pos</th>
+        <th>Tree</th>
+        <th>Symbol</th>
+        <th>Code</th>
+      </tr><tr>
+        <td>
+          19
+        </td>
+        <td>
+          64
+        </td>
+        <td>
+          483
+          -
+          530
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          scala.concurrent.Future.map
+        </td>
+        <td style="background: #F0ADAD">
+          scala.this.`package`.ScalaSingleObservable[org.mongodb.scala.Completed](MongoEntity.this.collection.insertMany(t)).toFuture().map[Seq[T]](((x$1: org.mongodb.scala.Completed) =&gt; t))(scala.concurrent.ExecutionContext.Implicits.global)
+        </td>
+      </tr><tr>
+        <td>
+          19
+        </td>
+        <td>
+          63
+        </td>
+        <td>
+          483
+          -
+          507
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          org.mongodb.scala.MongoCollection.insertMany
+        </td>
+        <td style="background: #F0ADAD">
+          MongoEntity.this.collection.insertMany(t)
+        </td>
+      </tr><tr>
+        <td>
+          24
+        </td>
+        <td>
+          65
+        </td>
+        <td>
+          575
+          -
+          598
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          org.mongodb.scala.MongoCollection.insertOne
+        </td>
+        <td style="background: #F0ADAD">
+          MongoEntity.this.collection.insertOne(t)
+        </td>
+      </tr><tr>
+        <td>
+          24
+        </td>
+        <td>
+          66
+        </td>
+        <td>
+          575
+          -
+          621
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          scala.concurrent.Future.map
+        </td>
+        <td style="background: #F0ADAD">
+          scala.this.`package`.ScalaSingleObservable[org.mongodb.scala.Completed](MongoEntity.this.collection.insertOne(t)).toFuture().map[T](((x$2: org.mongodb.scala.Completed) =&gt; t))(scala.concurrent.ExecutionContext.Implicits.global)
+        </td>
+      </tr><tr>
+        <td>
+          29
+        </td>
+        <td>
+          68
+        </td>
+        <td>
+          692
+          -
+          733
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          org.mongodb.scala.MongoCollection.deleteOne
+        </td>
+        <td style="background: #F0ADAD">
+          MongoEntity.this.collection.deleteOne(org.mongodb.scala.model.Filters.equal[Int](fieldName, t))
+        </td>
+      </tr><tr>
+        <td>
+          29
+        </td>
+        <td>
+          67
+        </td>
+        <td>
+          713
+          -
+          732
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          org.mongodb.scala.model.Filters.equal
+        </td>
+        <td style="background: #F0ADAD">
+          org.mongodb.scala.model.Filters.equal[Int](fieldName, t)
+        </td>
+      </tr><tr>
+        <td>
+          29
+        </td>
+        <td>
+          69
+        </td>
+        <td>
+          692
+          -
+          756
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          scala.concurrent.Future.map
+        </td>
+        <td style="background: #F0ADAD">
+          scala.this.`package`.ScalaSingleObservable[org.mongodb.scala.result.DeleteResult](MongoEntity.this.collection.deleteOne(org.mongodb.scala.model.Filters.equal[Int](fieldName, t))).toFuture().map[Int](((x$3: org.mongodb.scala.result.DeleteResult) =&gt; t))(scala.concurrent.ExecutionContext.Implicits.global)
+        </td>
+      </tr><tr>
+        <td>
+          34
+        </td>
+        <td>
+          71
+        </td>
+        <td>
+          857
+          -
+          902
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          org.mongodb.scala.MongoCollection.deleteMany
+        </td>
+        <td style="background: #F0ADAD">
+          MongoEntity.this.collection.deleteMany(org.mongodb.scala.model.Filters.equal[Int](fieldName, data))
+        </td>
+      </tr><tr>
+        <td>
+          34
+        </td>
+        <td>
+          74
+        </td>
+        <td>
+          843
+          -
+          926
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          scala.collection.TraversableLike.map
+        </td>
+        <td style="background: #F0ADAD">
+          t.map[scala.concurrent.Future[Seq[Int]], Seq[scala.concurrent.Future[Seq[Int]]]](((data: Int) =&gt; scala.this.`package`.ScalaSingleObservable[org.mongodb.scala.result.DeleteResult](MongoEntity.this.collection.deleteMany(org.mongodb.scala.model.Filters.equal[Int](fieldName, data))).toFuture().map[Seq[Int]](((x$4: org.mongodb.scala.result.DeleteResult) =&gt; t))(scala.concurrent.ExecutionContext.Implicits.global)))(collection.this.Seq.canBuildFrom[scala.concurrent.Future[Seq[Int]]])
+        </td>
+      </tr><tr>
+        <td>
+          34
+        </td>
+        <td>
+          73
+        </td>
+        <td>
+          848
+          -
+          848
+        </td>
+        <td>
+          TypeApply
+        </td>
+        <td>
+          scala.collection.Seq.canBuildFrom
+        </td>
+        <td style="background: #F0ADAD">
+          collection.this.Seq.canBuildFrom[scala.concurrent.Future[Seq[Int]]]
+        </td>
+      </tr><tr>
+        <td>
+          34
+        </td>
+        <td>
+          70
+        </td>
+        <td>
+          879
+          -
+          901
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          org.mongodb.scala.model.Filters.equal
+        </td>
+        <td style="background: #F0ADAD">
+          org.mongodb.scala.model.Filters.equal[Int](fieldName, data)
+        </td>
+      </tr><tr>
+        <td>
+          34
+        </td>
+        <td>
+          72
+        </td>
+        <td>
+          857
+          -
+          925
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          scala.concurrent.Future.map
+        </td>
+        <td style="background: #F0ADAD">
+          scala.this.`package`.ScalaSingleObservable[org.mongodb.scala.result.DeleteResult](MongoEntity.this.collection.deleteMany(org.mongodb.scala.model.Filters.equal[Int](fieldName, data))).toFuture().map[Seq[Int]](((x$4: org.mongodb.scala.result.DeleteResult) =&gt; t))(scala.concurrent.ExecutionContext.Implicits.global)
+        </td>
+      </tr><tr>
+        <td>
+          39
+        </td>
+        <td>
+          75
+        </td>
+        <td>
+          993
+          -
+          1048
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          org.mongodb.scala.ObservableImplicits.ScalaSingleObservable.toFuture
+        </td>
+        <td style="background: #F0ADAD">
+          scala.this.`package`.ScalaSingleObservable[T](MongoEntity.this.collection.find[T](org.mongodb.scala.model.Filters.equal[Int](fieldName, t))(DefaultHelper.this.DefaultsTo.default[T], MongoEntity.this.c).first()).toFuture()
+        </td>
+      </tr><tr>
+        <td>
+          44
+        </td>
+        <td>
+          77
+        </td>
+        <td>
+          1111
+          -
+          1111
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.db.MongoEntity.c
+        </td>
+        <td style="background: #F0ADAD">
+          MongoEntity.this.c
+        </td>
+      </tr><tr>
+        <td>
+          44
+        </td>
+        <td>
+          76
+        </td>
+        <td>
+          1111
+          -
+          1111
+        </td>
+        <td>
+          TypeApply
+        </td>
+        <td>
+          org.mongodb.scala.bson.DefaultHelper.DefaultsTo.default
+        </td>
+        <td style="background: #F0ADAD">
+          DefaultHelper.this.DefaultsTo.default[T]
+        </td>
+      </tr><tr>
+        <td>
+          44
+        </td>
+        <td>
+          78
+        </td>
+        <td>
+          1096
+          -
+          1113
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          org.mongodb.scala.MongoCollection.find
+        </td>
+        <td style="background: #F0ADAD">
+          MongoEntity.this.collection.find[T]()(DefaultHelper.this.DefaultsTo.default[T], MongoEntity.this.c)
+        </td>
+      </tr><tr>
+        <td>
+          48
+        </td>
+        <td>
+          80
+        </td>
+        <td>
+          1244
+          -
+          1261
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          org.mongodb.scala.model.Updates.set
+        </td>
+        <td style="background: #F0ADAD">
+          org.mongodb.scala.model.Updates.set[Int](fieldName, t)
+        </td>
+      </tr><tr>
+        <td>
+          48
+        </td>
+        <td>
+          82
+        </td>
+        <td>
+          1195
+          -
+          1285
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          scala.concurrent.Future.map
+        </td>
+        <td style="background: #F0ADAD">
+          scala.this.`package`.ScalaSingleObservable[org.mongodb.scala.result.UpdateResult](MongoEntity.this.collection.updateOne(org.mongodb.scala.model.Filters.equal[Int](fieldName, existing), org.mongodb.scala.model.Updates.set[Int](fieldName, t))).toFuture().map[Int](((x$5: org.mongodb.scala.result.UpdateResult) =&gt; t))(scala.concurrent.ExecutionContext.Implicits.global)
+        </td>
+      </tr><tr>
+        <td>
+          48
+        </td>
+        <td>
+          79
+        </td>
+        <td>
+          1216
+          -
+          1242
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          org.mongodb.scala.model.Filters.equal
+        </td>
+        <td style="background: #F0ADAD">
+          org.mongodb.scala.model.Filters.equal[Int](fieldName, existing)
+        </td>
+      </tr><tr>
+        <td>
+          48
+        </td>
+        <td>
+          81
+        </td>
+        <td>
+          1195
+          -
+          1262
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          org.mongodb.scala.MongoCollection.updateOne
+        </td>
+        <td style="background: #F0ADAD">
+          MongoEntity.this.collection.updateOne(org.mongodb.scala.model.Filters.equal[Int](fieldName, existing), org.mongodb.scala.model.Updates.set[Int](fieldName, t))
+        </td>
+      </tr><tr>
+        <td>
+          54
+        </td>
+        <td>
+          83
+        </td>
+        <td>
+          1370
+          -
+          1389
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          org.mongodb.scala.model.Filters.equal
+        </td>
+        <td style="background: #F0ADAD">
+          org.mongodb.scala.model.Filters.equal[Int](fieldName, t)
+        </td>
+      </tr><tr>
+        <td>
+          54
+        </td>
+        <td>
+          86
+        </td>
+        <td>
+          1353
+          -
+          1414
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          scala.concurrent.Future.map
+        </td>
+        <td style="background: #F0ADAD">
+          scala.this.`package`.ScalaSingleObservable[Long](MongoEntity.this.collection.count(org.mongodb.scala.model.Filters.equal[Int](fieldName, t))).toFuture().map[Int](((x$6: Long) =&gt; x$6.toInt))(scala.concurrent.ExecutionContext.Implicits.global)
+        </td>
+      </tr><tr>
+        <td>
+          54
+        </td>
+        <td>
+          85
+        </td>
+        <td>
+          1406
+          -
+          1413
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          scala.Long.toInt
+        </td>
+        <td style="background: #F0ADAD">
+          x$6.toInt
+        </td>
+      </tr><tr>
+        <td>
+          54
+        </td>
+        <td>
+          84
+        </td>
+        <td>
+          1353
+          -
+          1390
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          org.mongodb.scala.MongoCollection.count
+        </td>
+        <td style="background: #F0ADAD">
+          MongoEntity.this.collection.count(org.mongodb.scala.model.Filters.equal[Int](fieldName, t))
+        </td>
+      </tr><tr>
+        <td>
+          59
+        </td>
+        <td>
+          89
+        </td>
+        <td>
+          1495
+          -
+          1495
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.db.MongoEntity.c
+        </td>
+        <td style="background: #F0ADAD">
+          MongoEntity.this.c
+        </td>
+      </tr><tr>
+        <td>
+          59
+        </td>
+        <td>
+          88
+        </td>
+        <td>
+          1495
+          -
+          1495
+        </td>
+        <td>
+          TypeApply
+        </td>
+        <td>
+          org.mongodb.scala.bson.DefaultHelper.LowPriorityDefaultsTo.overrideDefault
+        </td>
+        <td style="background: #F0ADAD">
+          DefaultHelper.this.DefaultsTo.overrideDefault[T, org.mongodb.scala.Document]
+        </td>
+      </tr><tr>
+        <td>
+          59
+        </td>
+        <td>
+          87
+        </td>
+        <td>
+          1496
+          -
+          1510
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.db.MongoEntity.collectionName
+        </td>
+        <td style="background: #F0ADAD">
+          MongoEntity.this.collectionName
+        </td>
+      </tr><tr>
+        <td>
+          59
+        </td>
+        <td>
+          90
+        </td>
+        <td>
+          1473
+          -
+          1511
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          org.mongodb.scala.MongoDatabase.getCollection
+        </td>
+        <td style="background: #F0ADAD">
+          MongoEntity.this.database.getCollection[T](MongoEntity.this.collectionName)(DefaultHelper.this.DefaultsTo.overrideDefault[T, org.mongodb.scala.Document], MongoEntity.this.c)
+        </td>
+      </tr>
+    </table>
+          </div>
+        </div>
+      </body>
+    </html>
