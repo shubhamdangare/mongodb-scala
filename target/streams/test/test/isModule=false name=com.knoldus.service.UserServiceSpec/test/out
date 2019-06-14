@@ -1,0 +1,13 @@
+[0m[[0m[0minfo[0m] [0m[0m[32mUserServiceSpec:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mUserService#addUser[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should add user successfully[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should unable to add user if user already exist[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mUserService#deleteUser[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should delete user successfully[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should unable to delete user if user already exist[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mUserService#findUSer[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should user found successfully[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should unable to find user if user not already exist[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mUserService#updateUSer[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should update user successfully[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should unable to update user[0m[0m

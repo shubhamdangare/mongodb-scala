@@ -4,7 +4,7 @@
 		module="scala-mongodb-build"
 		revision="0.1.0-SNAPSHOT"
 		status="integration"
-		publication="20190613103007"
+		publication="20190614153113"
 		e:sbtVersion="1.0" e:scalaVersion="2.12"
 	>
 		<description>
@@ -40,6 +40,8 @@
 			<artifact name="global-plugins" type="src" ext="jar" conf="compile" e:classifier="sources"/>
 			<artifact name="global-plugins" type="doc" ext="jar" conf="compile" e:classifier="javadoc"/>
 		</dependency>
+		<dependency org="org.scalastyle" name="scalastyle-sbt-plugin" rev="1.0.0" conf="compile->default(compile)" e:sbtVersion="1.0" e:scalaVersion="2.12"/>
+		<dependency org="org.scoverage" name="sbt-scoverage" rev="1.5.1" conf="compile->default(compile)" e:sbtVersion="1.0" e:scalaVersion="2.12"/>
 		<override org="org.scala-sbt" module="scripted-plugin_2.12" matcher="exact" rev="1.2.8"/>
 	</dependencies>
 </ivy-module>

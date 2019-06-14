@@ -2,10 +2,10 @@ package com.knoldus.db
 
 import java.util.concurrent.TimeUnit
 
+import org.mongodb.scala._
+
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
-
-import org.mongodb.scala._
 
 object Helpers {
 

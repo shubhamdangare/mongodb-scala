@@ -1,0 +1,40 @@
+[0m[[0m[0minfo[0m] [0m[0mscalastyle using config /home/shubham/Desktop/work/scala-mongodb/scalastyle-config.xml[0m
+[0m[[0m[0mdebug[0m] [0m[0mStarting scalastyle[0m
+[0m[[0m[0mdebug[0m] [0m[0mstart file /home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala:1: Header does not match expected text[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala:80:67: Magic Number[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala:19:6: Method name does not match the regular expression '^[a-z][A-Za-z0-9]*$'[0m
+[0m[[0m[0mdebug[0m] [0m[0mend file /home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/service/UserService.scala[0m
+[0m[[0m[0mdebug[0m] [0m[0mstart file /home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/utils/ThrowableExtensions.scala[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/utils/ThrowableExtensions.scala:1: Header does not match expected text[0m
+[0m[[0m[0mdebug[0m] [0m[0mend file /home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/utils/ThrowableExtensions.scala[0m
+[0m[[0m[0mdebug[0m] [0m[0mstart file /home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/MongoEntity.scala[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/MongoEntity.scala:1: Header does not match expected text[0m
+[0m[[0m[0mdebug[0m] [0m[0mend file /home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/MongoEntity.scala[0m
+[0m[[0m[0mdebug[0m] [0m[0mstart file /home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/Helpers.scala[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/Helpers.scala:1: Header does not match expected text[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/Helpers.scala:24:73: Magic Number[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/Helpers.scala:26:64: Magic Number[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/Helpers.scala:30:31: Regular expression matched 'println'[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/Helpers.scala:33:54: Regular expression matched 'println'[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/Helpers.scala:26:8: Public method must have explicit type[0m
+[0m[[0m[0mdebug[0m] [0m[0mend file /home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/db/Helpers.scala[0m
+[0m[[0m[0mdebug[0m] [0m[0mstart file /home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala:1: Header does not match expected text[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala:35:62: Magic Number[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala:40:36: Magic Number[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala:40:57: Magic Number[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala:42:6: Public method must have explicit type[0m
+[0m[[0m[0mdebug[0m] [0m[0mend file /home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/MongoApplication.scala[0m
+[0m[[0m[0mdebug[0m] [0m[0mstart file /home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/domain/User.scala[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/domain/User.scala:1: Header does not match expected text[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/domain/User.scala: File must end with newline character[0m
+[0m[[0m[0mdebug[0m] [0m[0mend file /home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/domain/User.scala[0m
+[0m[[0m[0mdebug[0m] [0m[0mstart file /home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/dao/UserDao.scala[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/dao/UserDao.scala:1: Header does not match expected text[0m
+[0m[[0m[0mdebug[0m] [0m[0mend file /home/shubham/Desktop/work/scala-mongodb/src/main/scala/com/knoldus/dao/UserDao.scala[0m
+[0m[[0m[0minfo[0m] [0m[0mscalastyle Processed 7 file(s)[0m
+[0m[[0m[0minfo[0m] [0m[0mscalastyle Found 0 errors[0m
+[0m[[0m[0minfo[0m] [0m[0mscalastyle Found 19 warnings[0m
+[0m[[0m[0minfo[0m] [0m[0mscalastyle Found 0 infos[0m
+[0m[[0m[0minfo[0m] [0m[0mscalastyle Finished in 23 ms[0m

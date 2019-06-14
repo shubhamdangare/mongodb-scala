@@ -1,54 +1,61 @@
 package com.knoldus.db
 
-import com.knoldus.db.Helpers._
 import org.mongodb.scala.model.Filters._
 import org.mongodb.scala.model.Updates._
-import org.mongodb.scala.{Completed, FindObservable, MongoCollection, SingleObservable}
-import scala.reflect.ClassTag
+import org.mongodb.scala.{FindObservable, MongoCollection, MongoDatabase}
 
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
+import scala.reflect.ClassTag
 
 abstract class MongoEntity[T](implicit c: ClassTag[T]) {
 
-  def createMany(t: Seq[T], collection: MongoCollection[T]): Seq[Completed] = {
+  protected val database: MongoDatabase
 
-    collection.insertMany(t).results()
+  val collectionName: String
+
+  def createMany(t: Seq[T]): Future[Seq[T]] = {
+
+    collection.insertMany(t).toFuture().map(_ => t)
   }
 
-  def create(t: T, collection: MongoCollection[T]): Seq[Completed] = {
+  def create(t: T): Future[T] = {
 
-    collection.insertOne(t).results()
+    collection.insertOne(t).toFuture().map(_ => t)
   }
 
-  def deleteOne(t: Int, collection: MongoCollection[T], fieldName: String): Unit = {
+  def deleteOne(t: Int, fieldName: String): Future[Int] = {
 
-    collection.deleteOne(equal(fieldName, t)).printHeadResult("deleted")
+    collection.deleteOne(equal(fieldName, t)).toFuture().map(_ => t)
   }
 
-  def deleteMany(t: Seq[Int], collection: MongoCollection[T], fieldName: String): Unit = {
+  def deleteMany(t: Seq[Int], fieldName: String): Seq[Future[Seq[Int]]] = {
 
-    t.map(data => collection.deleteMany(equal(fieldName, data)))
+    t.map(data => collection.deleteMany(equal(fieldName, data)).toFuture().map(_ => t))
   }
 
+  def findOne(t: Int, fieldName: String): Future[T] = {
 
-  def findOne(t: Int, collection: MongoCollection[T], fieldName: String): SingleObservable[T] = {
-
-    collection.find(equal(fieldName, t)).first()
+    collection.find(equal(fieldName, t)).first().toFuture()
   }
 
-  def findAll(collection: MongoCollection[T]): FindObservable[T] = {
+  def findAll: FindObservable[T] = {
 
     collection.find()
   }
 
-  def update(existing: Int, t: Int, collection: MongoCollection[T], fieldName: String) = {
-    collection.updateOne(equal(fieldName, existing), set(fieldName, t)).printHeadResult("Update Result: ")
+  def update(existing: Int, t: Int, fieldName: String): Future[Int] = {
+    collection.updateOne(equal(fieldName, existing), set(fieldName, t)).toFuture().map(_ => t)
 
   }
 
-  def count(t: Int, collection: MongoCollection[T], fieldName: String): SingleObservable[Long] = {
+  def count(t: Int, fieldName: String): Future[Int] = {
 
-    collection.count(equal(fieldName, t))
+    collection.count(equal(fieldName, t)).toFuture().map(_.toInt)
 
   }
+
+  implicit def collection: MongoCollection[T] =
+    database.getCollection(collectionName)
 
 }

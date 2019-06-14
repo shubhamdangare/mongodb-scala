@@ -2,84 +2,100 @@ package com.knoldus.service
 
 import java.util.concurrent.TimeUnit
 
-import com.knoldus.db.MongoEntity
+import cats.implicits._
+import com.knoldus.dao.UserDao
 import com.knoldus.domain.User
-import com.knoldus.db.Helpers._
-
-import scala.concurrent.ExecutionContext.Implicits.global
+import com.knoldus.service.UserService.UserServiceError
 import com.typesafe.config.Config
 import org.apache.log4j.Logger
-import org.bson.codecs.configuration.CodecRegistries.{fromProviders, fromRegistries}
-import org.mongodb.scala.bson.codecs.DEFAULT_CODEC_REGISTRY
-import org.mongodb.scala.bson.codecs.Macros._
-import org.mongodb.scala.{MongoClient, MongoCollection}
 
-import scala.concurrent.{Await, Future}
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.Duration
-import scala.util.Success
+import scala.concurrent.{Await, Future}
 
-class UserService(mongoClient: MongoClient, conf: Config)(implicit val logger: Logger) extends MongoEntity[User] {
+class UserService(dao: UserDao, conf: Config)(implicit val logger: Logger) {
 
-  val codecRegistry = fromRegistries(fromProviders(classOf[User]), DEFAULT_CODEC_REGISTRY)
-  val mongoDatabase = mongoClient.getDatabase(conf.getString("mongo.db-name")).withCodecRegistry(codecRegistry)
-  val collection: MongoCollection[User] = mongoDatabase.getCollection(conf.getString("mongo.collection-name"))
 
-  val person: User = User("Ada", "Lovelace", "us", "17/1970", 222222222, "WD")
-
-  def AddUser(user: User): Future[Unit] = Future {
+  def AddUser(user: User): Future[Either[UserServiceError, User]] = {
 
     if (getCount(user.mobileNumber) == 0) {
-      super.create(user, collection)
       logger.info("user added successfully")
+      for {user <- dao.create(user)} yield user
+      Future.successful(user.asRight)
     }
     else {
       logger.info("user already exists")
+      Future.successful(UserServiceError.UserAlreadyExist.asLeft)
     }
 
   }
 
-  def deleteUser(user: User): Future[Unit] = Future {
+  def deleteUser(userMobile: Int): Future[Either[UserServiceError, Int]] = {
 
-    if (getCount(user.mobileNumber) == 1) {
-      super.deleteOne(user.mobileNumber, collection, "mobileNumber")
-      logger.info("user deleted Successfully")
+    if (getCount(userMobile) == 1) {
+      val result = for {
+        user <- dao.findOne(userMobile, "mobileNumber")
+        data <- dao.deleteOne(user.mobileNumber, "mobileNumber")
+      } yield data
+      result.map(value => value.asRight)
     }
     else {
       logger.info("user not found")
+      Future.successful(UserServiceError.UserNotFound.asLeft)
     }
 
   }
 
-  def updateUser(user: User, mobileNumber: Int): Future[Unit] = Future {
+  def updateUser(user: User, mobile: Int): Future[Either[UserServiceError, Int]] = {
 
     if (getCount(user.mobileNumber) == 1) {
-      val data = super.findOne(user.mobileNumber, collection, "mobileNumber")
-      data.toFuture().onComplete(user => user match {
-        case Success(value) =>
-          super.update(value.mobileNumber, mobileNumber, collection, "mobileNumber")
-        case _ => throw new RuntimeException("unable to update user")
-      })
-      logger.info("user deleted Successfully")
+      val result = for {
+        user <- dao.findOne(user.mobileNumber, "mobileNumber")
+        data <- dao.update(user.mobileNumber, mobile, "mobileNumber")
+      } yield data
+      result.map(value => value.asRight)
     }
     else {
       logger.info("user not found")
+      Future.successful(UserServiceError.UserNotFound.asLeft)
     }
 
   }
 
-  def findUser(number: Int): Future[Unit] = Future {
+  def findUser(number: Int): Future[Either[UserServiceError, User]] = {
 
     if (getCount(number) == 1) {
-      super.findOne(number, collection, "mobileNumber").printHeadResult("User Data : ---")
       logger.info("user added successfully")
+      dao.findOne(number, "mobileNumber").map(_.asRight)
     }
     else {
       logger.info("user already exists")
+      Future.successful(UserServiceError.UserNotFound.asLeft)
     }
 
   }
 
-  private def getCount(mobileNumber: Int): Long =
-    Await.result(super.count(mobileNumber, collection, "mobileNumber").toFuture(), Duration(10, TimeUnit.SECONDS))
+  def getCount(mobileNumber: Int): Int = {
+
+    Await.result(dao.count(mobileNumber, "mobileNumber"), Duration(5, TimeUnit.SECONDS))
+  }
+
+}
+
+object UserService {
+
+  sealed trait UserServiceError
+
+  object UserServiceError {
+
+    case object UserNotFound extends UserServiceError
+
+    case object UserNotUpdatedDenied extends UserServiceError
+
+    case object UserNotDeleted extends UserServiceError
+
+    case object UserAlreadyExist extends UserServiceError
+
+  }
 
 }
