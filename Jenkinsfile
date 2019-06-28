@@ -31,8 +31,7 @@ pipeline {
             recipientProviders: [
             [$class: 'DevelopersRecipientProvider'],
             [$class: 'RequesterRecipientProvider']
-            ]
-            , subject: 'Test'
+            ], subject: 'Test'
         }
     }
 }
