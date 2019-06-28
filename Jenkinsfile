@@ -27,15 +27,12 @@ pipeline {
     }
     post {
         always {
-            emailext body: 'A Test EMail',
-            recipientProviders: [
-            [$class: 'DevelopersRecipientProvider'],
-            [$class: 'RequesterRecipientProvider']
-            ], subject: 'Test'
+            echo 'I will always say Hello again!'
+            
+            emailext body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}",
+                recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
+                subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME}"
+            
         }
-        
-      success {
-         mail to: shubham17495@.com, subject: ‘The Pipeline success :(‘
-      }
     }
 }
