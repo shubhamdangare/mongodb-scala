@@ -1,8 +1,9 @@
-[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(com.knoldus.service.UserServiceSpec, org.scalatest.tools.Framework$$anon$1@6110b056, false, [SuiteSelector])[0m
-[0m[[0m[0minfo[0m] [0m[0m[36mRun completed in 2 seconds, 887 milliseconds.[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(com.knoldus.service.UserServiceSpec, org.scalatest.tools.Framework$$anon$1@e124ece, false, [SuiteSelector])[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mRun completed in 2 seconds, 193 milliseconds.[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[36mTotal number of tests run: 8[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[36mSuites: completed 1, aborted 0[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[36mTests: succeeded 8, failed 0, canceled 0, ignored 0, pending 0[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32mAll tests passed.[0m[0m
-[0m[[0m[0mdebug[0m] [0m[0mPassed tests:[0m
-[0m[[0m[0mdebug[0m] [0m[0m	com.knoldus.service.UserServiceSpec[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mTests: succeeded 7, failed 1, canceled 0, ignored 0, pending 0[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m*** 1 TEST FAILED ***[0m[0m
+[0m[[0m[31merror[0m] [0m[0mFailed tests:[0m
+[0m[[0m[31merror[0m] [0m[0m	com.knoldus.service.UserServiceSpec[0m
+[0m[[0m[31merror[0m] [0m[0m(Test / [31mtest[0m) sbt.TestsFailedException: Tests unsuccessful[0m

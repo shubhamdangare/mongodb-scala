@@ -37,7 +37,7 @@ class UserServiceSpec extends WordSpec with ScalaFutures with Matchers with Mock
         dao.create(person)
       ).thenReturn(future(person))
 
-      whenReady(userService.addUser(person))(_ shouldBe person.asRight)
+      whenReady(userService.addUser(person))(_ shouldBe person.asLeft)
     }
 
 

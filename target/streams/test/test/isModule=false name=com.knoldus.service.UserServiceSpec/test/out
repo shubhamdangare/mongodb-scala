@@ -1,6 +1,7 @@
 [0m[[0m[0minfo[0m] [0m[0m[32mUserServiceSpec:[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mUserService#addUser[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- should add user successfully[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m- should add user successfully *** FAILED ***[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  Right(User(5d15c14b2e2fe94dee684073,Ada,Lovelace,us,17/1970,222222222,WD)) was not equal to Left(User(5d15c14b2e2fe94dee684073,Ada,Lovelace,us,17/1970,222222222,WD)) (UserServiceSpec.scala:40)[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- should unable to add user if user already exist[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mUserService#deleteUser[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- should delete user successfully[0m[0m
