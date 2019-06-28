@@ -33,5 +33,9 @@ pipeline {
             [$class: 'RequesterRecipientProvider']
             ], subject: 'Test'
         }
+        
+      success {
+         mail to: shubham17495@.com, subject: ‘The Pipeline success :(‘
+      }
     }
 }
